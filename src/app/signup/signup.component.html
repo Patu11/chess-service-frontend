@@ -1,6 +1,6 @@
 <div>
 	<div class="center">
-		<h1 style="text-align: center;">Sign up</h1>
+		<h1 style="text-align: center;">Create Your Account</h1>
 	</div>
 	<div class="margin-btm center">
 		<label for="username">Username</label>
@@ -15,7 +15,8 @@
 		<input [(ngModel)]="password" id="password" type="password" class="form-control" placeholder="Enter password">
 	</div>
 	<div class="buttons center">
-		<button style="width: 100%;" type="button" class="btn btn-primary">Sign up</button>
+		<p style="color: red;" *ngIf="userAlreadyExists">{{message}}</p>
+		<button (click)="onSignup()" style="width: 100%;" type="button" class="btn btn-primary">Sign up</button>
 	</div>
 </div>
 

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from "../services/user.service";
+import {User} from "../models/User";
 
 @Component({
 	selector: 'app-signup',
@@ -6,18 +8,26 @@ import {Component, OnInit} from '@angular/core';
 	styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+	userAlreadyExists: boolean = false;
+	message: string = '';
 	email: string = '';
 	username: string = '';
 	password: string = '';
 
-	constructor() {
+	constructor(private userService: UserService) {
 	}
 
 	onSignup() {
-		console.log(this.email);
-		console.log(this.username);
-		console.log(this.password);
+		let user = new User(this.email, this.username, this.password);
+		this.userService.createUser(user).subscribe(
+			response => {
+
+			},
+			error => {
+				this.userAlreadyExists = error.error.status == 409;
+				this.message = error.error.message;
+			}
+		);
 	}
 
 	ngOnInit(): void {
