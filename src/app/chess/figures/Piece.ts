@@ -25,5 +25,7 @@ export abstract class Piece {
 		this._white = value;
 	}
 
-	public abstract canMove(board: Board, start: Spot, end: Spot): {}
+	public abstract canMove(board: Board, start: Spot, end: Spot): boolean;
+
+	public abstract getFigureSvg(): string;
 }

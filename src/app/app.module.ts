@@ -8,13 +8,17 @@ import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {SignupComponent} from './signup/signup.component';
 import {HttpClientModule} from "@angular/common/http";
+import { SquareComponent } from './chessview/square/square.component';
+import { BoardComponent } from './chessview/board/board.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		MainComponent,
 		LoginComponent,
-		SignupComponent
+		SignupComponent,
+  SquareComponent,
+  BoardComponent,
 	],
 	imports: [
 		BrowserModule,

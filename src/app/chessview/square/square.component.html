@@ -1,0 +1,17 @@
+<div (click)="onPieceClick()" class="square" [ngStyle]="{'background':color}">
+	<div *ngIf="coordY==0">
+		<p class="topleft">{{8 - coordX!}}</p>
+	</div>
+
+	<div *ngIf="coordX==7">
+		<p class="bottomright">{{letters[coordY!]}}</p>
+	</div>
+
+	<div *ngIf="coordX == 7 && coordY == 0">
+		<p class="topleft">{{8 - coordX!}}</p>
+		<p class="bottomright">{{letters[coordY!]}}</p>
+	</div>
+
+	<img *ngIf="!isEmptyFigure" [ngStyle]="{'opacity':opacity}" class="piece"
+		 src="/assets/figures/{{imageSrc}}"/>
+</div>

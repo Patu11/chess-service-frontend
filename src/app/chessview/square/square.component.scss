@@ -1,0 +1,25 @@
+.square {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  position: relative;
+}
+
+.piece {
+  width: 90px;
+  height: 90px;
+}
+
+.topleft {
+  position: absolute;
+  padding-left: 3px;
+  font-size: 20px;
+}
+
+.bottomright {
+  position: absolute;
+  top: 70%;
+  right: 0;
+  padding-right: 3px;
+  font-size: 20px;
+}

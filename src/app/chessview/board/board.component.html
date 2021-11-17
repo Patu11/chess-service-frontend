@@ -1,0 +1,9 @@
+<div class="container">
+	<div>
+		<div *ngFor="let x of boxes; let indexX= index;">
+			<div class="squares" *ngFor="let y of x; let indexY = index">
+				<app-square [coordX]="indexX" [coordY]="indexY" [piece]="y.getPiece()"></app-square>
+			</div>
+		</div>
+	</div>
+</div>
