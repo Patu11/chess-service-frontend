@@ -6,3 +6,8 @@
 .margin-btm {
     margin-bottom: 5px;
 }
+
+.error {
+    color: red;
+    text-align: center;
+}
