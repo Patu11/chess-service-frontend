@@ -52,16 +52,23 @@ export class Pawn extends Piece {
 
 		if (!this.isMoved() && start.getX() == end.getX() && Math.abs(end.getY() - start.getY()) <= 2) {
 			if (end.getY() < start.getY() && this.isWhite()) {
+				this.setMoved(true);
 				return true;
-			} else
+			} else {
+				if (end.getY() > start.getY() && !this.isWhite()) this.setMoved(true);
 				return end.getY() > start.getY() && !this.isWhite();
+			}
 		} else if (start.getX() == end.getX() && Math.abs(start.getY() - end.getY()) < 2) {
 			if (end.getY() > start.getY() && this.isWhite()) {
+				this.setMoved(true);
 				return true;
-			} else
+			} else {
+				if (end.getY() < start.getY() && !this.isWhite()) this.setMoved(true);
 				return end.getY() < start.getY() && !this.isWhite();
+			}
 		} else if (end.getX() == start.getX() - 1 || end.getX() == start.getX() + 1) {
 			if (!(end.getPiece() instanceof Empty) && end.getPiece().isWhite() != this.isWhite()) {
+				if (this.isWhite() ? end.getY() == start.getY() - 1 : end.getY() == start.getY() + 1) this.setMoved(true);
 				return this.isWhite() ? end.getY() == start.getY() - 1 : end.getY() == start.getY() + 1;
 			}
 		}
