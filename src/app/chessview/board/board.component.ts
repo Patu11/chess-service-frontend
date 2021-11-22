@@ -3,7 +3,6 @@ import {Spot} from "../../model/chess/Spot";
 import {Game} from "../../model/chess/Game";
 import {Player} from "../../model/chess/Player";
 import {Empty} from "../../model/chess/figures/Empty";
-import {Rook} from "../../model/chess/figures/Rook";
 
 @Component({
 	selector: 'app-board',
@@ -25,10 +24,9 @@ export class BoardComponent implements OnInit {
 			this.currentClicked = spot;
 		} else {
 			if (spot != this.currentClicked) {
-				if (this.currentClicked?.getPiece() instanceof Rook) {
-					let p: Rook = this.currentClicked.getPiece() as Rook;
-					console.log(p.canMove(this.game.getBoard(), this.currentClicked, spot));
-				}
+				let p = this.currentClicked!.getPiece();
+				console.log(p.canMove(this.game.getBoard(), this.currentClicked!, spot));
+
 				this.game.test(this.currentClicked!, spot);
 
 				this.currentClicked = undefined;
