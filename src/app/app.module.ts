@@ -8,8 +8,8 @@ import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {SignupComponent} from './signup/signup.component';
 import {HttpClientModule} from "@angular/common/http";
-import { SquareComponent } from './chessview/square/square.component';
-import { BoardComponent } from './chessview/board/board.component';
+import {SquareComponent} from './chessview/square/square.component';
+import {BoardComponent} from './chessview/board/board.component';
 
 @NgModule({
 	declarations: [
@@ -17,8 +17,8 @@ import { BoardComponent } from './chessview/board/board.component';
 		MainComponent,
 		LoginComponent,
 		SignupComponent,
-  SquareComponent,
-  BoardComponent,
+		SquareComponent,
+		BoardComponent
 	],
 	imports: [
 		BrowserModule,

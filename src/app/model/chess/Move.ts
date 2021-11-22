@@ -1,7 +1,6 @@
 import {Player} from "./Player";
 import {Spot} from "./Spot";
 import {Piece} from "./figures/Piece";
-import {Empty} from "./figures/Empty";
 
 export class Move {
 	private _player: Player;

@@ -36,11 +36,23 @@ export class Game {
 		this._status = status;
 	}
 
+	public getBoard() {
+		return this._board;
+	}
+
 	public playerMove(player: Player, startX: number, startY: number, endX: number, endY: number): boolean {
-		let startBox: Spot = this._board.getBox(startX, startY);
-		let endBox: Spot = this._board.getBox(endX, endY);
+		let startBox: Spot = this._board.getSpot(startX, startY);
+		let endBox: Spot = this._board.getSpot(endX, endY);
 		let move: Move = new Move(player, startBox, endBox);
 		return this.makeMove(move, player);
+	}
+	
+	public test(start: Spot, end: Spot) {
+		let newStart = new Spot(start.getX(), start.getY(), new Empty(false));
+		let newEnd = new Spot(end.getX(), end.getY(), start.getPiece());
+
+		this.getBoard().getSpots()[start.getX()][start.getY()] = newStart;
+		this.getBoard().getSpots()[end.getX()][end.getY()] = newEnd;
 	}
 
 	public makeMove(move: Move, player: Player): boolean {

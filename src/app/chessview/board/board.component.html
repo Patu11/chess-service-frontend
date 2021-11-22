@@ -1,9 +1,21 @@
-<div class="container">
-	<div>
-		<div *ngFor="let x of boxes; let indexX= index;">
-			<div class="squares" *ngFor="let y of x; let indexY = index">
-				<app-square [coordX]="indexX" [coordY]="indexY" [piece]="y.getPiece()"></app-square>
+<div *ngIf="whiteSide;else blackSide">
+	<div class="container">
+		<div class="squares" *ngFor="let x of game.getBoard().getSpots()">
+			<div *ngFor="let spot of x">
+				<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>
 			</div>
 		</div>
 	</div>
 </div>
+
+<ng-template #blackSide>
+	<div class="container">
+		<div class="squares" *ngFor="let x of game.getBoard().getSpots()">
+			<div *ngFor="let spot of x">
+				<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<!--<button (click)="changeSide()">Change</button>-->

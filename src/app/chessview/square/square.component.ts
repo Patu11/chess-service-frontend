@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Piece} from "../../chess/figures/Piece";
-import {Empty} from "../../chess/figures/Empty";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Empty} from "../../model/chess/figures/Empty";
+import {Spot} from "../../model/chess/Spot";
 
 @Component({
 	selector: 'app-square',
@@ -12,35 +12,29 @@ export class SquareComponent implements OnInit {
 	isWhite: boolean | undefined;
 
 	@Input()
-	piece: Piece = new Empty(false);
+	spot?: Spot;
 
-	@Input()
-	coordX: number | undefined;
-
-	@Input()
-	coordY: number | undefined;
+	@Output()
+	clickedSpot = new EventEmitter<Spot>();
 
 	isEmptyFigure: boolean = true;
 	imageSrc: string | undefined;
 	color: string = '';
-	opacity: number = 1;
-	letters: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 	constructor() {
 
 	}
 
 	onPieceClick() {
-		this.opacity = 0.5;
-		let notation = this.letters[this.coordY!] + (8 - this.coordX!);
-		console.log(this.piece);
-		console.log(notation);
+		// console.log(this.spot?.getPiece());
+		console.log("X: " + this.spot!.getX() + " Y: " + this.spot!.getY() + " NOTATION: " + this.spot?.getNotation());
+		this.clickedSpot.emit(this.spot);
 	}
 
 	ngOnInit(): void {
-		this.isEmptyFigure = this.piece instanceof Empty;
-		this.imageSrc = this.piece.getFigureSvg();
-		this.isWhite = (this.coordX! + this.coordY!) % 2 == 0;
+		this.isEmptyFigure = this.spot!.getPiece() instanceof Empty;
+		this.imageSrc = this.spot?.getPiece().getFigureSvg();
+		this.isWhite = (this.spot!.getX() + this.spot!.getY()) % 2 == 0;
 		this.color = this.isWhite ? '#eeeed2' : '#769656';
 	}
 }
