@@ -10,6 +10,9 @@ import {SignupComponent} from './signup/signup.component';
 import {HttpClientModule} from "@angular/common/http";
 import {SquareComponent} from './chessview/square/square.component';
 import {BoardComponent} from './chessview/board/board.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 @NgModule({
 	declarations: [
@@ -18,7 +21,10 @@ import {BoardComponent} from './chessview/board/board.component';
 		LoginComponent,
 		SignupComponent,
 		SquareComponent,
-		BoardComponent
+		BoardComponent,
+  ProfileComponent,
+  CommentComponent,
+  CommentListComponent
 	],
 	imports: [
 		BrowserModule,

@@ -54,7 +54,7 @@ export class King extends Piece {
 		if (!this.isMoved() && !this.inCheck(board)) {
 			for (let spots of board.getSpots()) {
 				for (let spot of spots) {
-					if (spot.getPiece() instanceof Rook && spot.getPiece().isWhite() == this.isWhite() && !spot.getPiece().isMoved()) {
+					if ((spot.getPiece() instanceof Rook) && (spot.getPiece().isWhite() == this.isWhite()) && !spot.getPiece().isMoved()) {
 						return true;
 					}
 				}
@@ -101,7 +101,7 @@ export class King extends Piece {
 					board.getSpot(i, end.getY()).setPiece(tempPiece);
 					tempSpot.setPiece(this);
 				}
-
+				this.setMoved(true);
 				return true;
 			} else if (end.getX() == 6) {
 				for (let i = this.getSpot(board).getX() + 1; i < 7; i++) {
@@ -126,7 +126,7 @@ export class King extends Piece {
 					board.getSpot(i, end.getY()).setPiece(tempPiece);
 					tempSpot.setPiece(this);
 				}
-
+				this.setMoved(true);
 				return true;
 			}
 		}
@@ -152,13 +152,15 @@ export class King extends Piece {
 		tempSpot.setPiece(this);
 
 		if (start.getX() == end.getX()) {
+			if (Math.abs(start.getY() - end.getY()) <= 1) this.setMoved(true);
 			return Math.abs(start.getY() - end.getY()) <= 1;
 		} else if (start.getY() == end.getY()) {
+			if (Math.abs(start.getX() - end.getX()) <= 1) this.setMoved(true);
 			return Math.abs(start.getX() - end.getX()) <= 1;
 		} else if (Math.abs(start.getX() - end.getX()) + Math.abs(start.getY() - end.getY()) > 2) {
 			return false;
 		}
-
+		this.setMoved(true);
 		return true;
 	}
 }
