@@ -13,7 +13,13 @@ export class UserService {
 	}
 
 	createUser(user: User) {
-		return this.http.post<User>(this.userUrl, user);
+		const body = {
+			email: user.email,
+			username: user.username,
+			password: user.password,
+			comments: []
+		};
+		return this.http.post<User>(this.userUrl + "/signup", body);
 	}
 
 	getUser(username: string) {
