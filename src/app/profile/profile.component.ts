@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 	profile: Profile | undefined;
 
 	constructor(private profileService: ProfileService) {
+		this.profile = new Profile(-1, new User('', '', '', []), []);
 	}
 
 	ngOnInit(): void {
