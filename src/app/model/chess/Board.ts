@@ -14,42 +14,6 @@ export class Board {
 
 	constructor() {
 		this._spots = this.createBoard();
-		// this._spots = [];
-		// //Initialize array
-		// for (let i = 0; i < 8; i++) {
-		// 	this._spots[i] = [];
-		// 	for (let j = 0; j < 8; j++) {
-		// 		this._spots[i][j] = new Spot(i, j, new Empty(false));
-		// 	}
-		// }
-		//
-		// //Initialize black
-		// this._spots[0][0] = new Spot(0, 0, new Rook(false));
-		// this._spots[1][0] = new Spot(1, 0, new Knight(false));
-		// this._spots[2][0] = new Spot(2, 0, new Bishop(false));
-		// this._spots[3][0] = new Spot(3, 0, new Queen(false));
-		// this._spots[4][0] = new Spot(4, 0, new King(false));
-		// this._spots[5][0] = new Spot(5, 0, new Bishop(false));
-		// this._spots[6][0] = new Spot(6, 0, new Knight(false));
-		// this._spots[7][0] = new Spot(7, 0, new Rook(false));
-		//
-		// //Initialize white
-		// this._spots[0][7] = new Spot(0, 7, new Rook(true));
-		// this._spots[1][7] = new Spot(1, 7, new Knight(true));
-		// this._spots[2][7] = new Spot(2, 7, new Bishop(true));
-		// this._spots[3][7] = new Spot(3, 7, new Queen(true));
-		// this._spots[4][7] = new Spot(4, 7, new King(true));
-		// this._spots[5][7] = new Spot(5, 7, new Bishop(true));
-		// this._spots[6][7] = new Spot(6, 7, new Knight(true));
-		// this._spots[7][7] = new Spot(7, 7, new Rook(true));
-		//
-		// // //Initialize pawns
-		// for (let i = 0; i < 8; i++) {
-		// 	this._spots[i][1] = new Spot(i, 1, new Pawn(false));
-		// 	this._spots[i][6] = new Spot(i, 6, new Pawn(true));
-		// }
-
-		// this._spots = this.parseFEN('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
 	}
 
 	public getKing(white: boolean): King {

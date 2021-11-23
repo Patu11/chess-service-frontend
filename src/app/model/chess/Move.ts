@@ -6,28 +6,29 @@ export class Move {
 	private _player: Player;
 	private _start: Spot;
 	private _end: Spot;
-	private _pieceMoved: Piece;
-	private _pieceKilled?: Piece;
-	private _castlingMove: boolean = false;
+	private _whiteMove: boolean;
 
-	constructor(player: Player, start: Spot, end: Spot) {
+	constructor(player: Player, start: Spot, end: Spot, whiteMove: boolean) {
 		this._player = player;
 		this._start = start;
 		this._end = end;
-		this._pieceMoved = start.getPiece();
-		// this._pieceKilled = end.getPiece();
+		this._whiteMove = whiteMove;
 	}
 
-	public isCastlingMove(): boolean {
-		return this._castlingMove;
+	public getPlayer(): Player {
+		return this._player;
 	}
 
-	public setCastlingMove(castlingMove: boolean) {
-		this._castlingMove = castlingMove;
+	public setPlayer(player: Player) {
+		this._player = player;
 	}
 
-	public setPieceKilled(piece: Piece) {
-		this._pieceKilled = piece;
+	public isWhiteMove(): boolean {
+		return this._whiteMove;
+	}
+
+	public setWhiteMove(whiteMove: boolean) {
+		this._whiteMove = whiteMove;
 	}
 
 	public getStart(): Spot {

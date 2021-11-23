@@ -3,6 +3,8 @@ import {Spot} from "../../model/chess/Spot";
 import {Game} from "../../model/chess/Game";
 import {Player} from "../../model/chess/Player";
 import {Empty} from "../../model/chess/figures/Empty";
+import {Pawn} from "../../model/chess/figures/Pawn";
+import {Queen} from "../../model/chess/figures/Queen";
 
 @Component({
 	selector: 'app-board',
@@ -23,19 +25,34 @@ export class BoardComponent implements OnInit {
 		if (this.currentClicked == undefined && !(spot.getPiece() instanceof Empty)) {
 			this.currentClicked = spot;
 		} else {
-			if (spot != this.currentClicked) {
+			if (spot != this.currentClicked/* && this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)*/) {
 				let p = this.currentClicked!.getPiece();
 				console.log(p.canMove(this.game.getBoard(), this.currentClicked!, spot));
+
+				// if (this.reachedPromotion(this.currentClicked!, spot, this.currentClicked!.getPiece().isWhite())) {
+				// 	console.log("Reached promotion");
+				// 	spot = new Spot(spot.getX(), spot.getY(), new Queen(this.currentClicked!.getPiece().isWhite()))
+				// }
 
 				this.game.test(this.currentClicked!, spot);
 
 				this.currentClicked = undefined;
 
 				console.log(this.game.getBoard().getSpots());
-			} else if (this.currentClicked == spot) {
-				console.log("Same piece");
 			}
 		}
+	}
+
+	reachedPromotion(start: Spot, end: Spot, white: boolean): boolean {
+		let out: boolean = false;
+		if (start.getPiece() instanceof Pawn) {
+			if (white && end.getY() == 0) {
+				out = true;
+			} else if (!white && end.getY() == 7) {
+				out = true;
+			}
+		}
+		return out;
 	}
 
 	changeSide() {

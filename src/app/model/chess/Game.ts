@@ -43,10 +43,10 @@ export class Game {
 	public playerMove(player: Player, startX: number, startY: number, endX: number, endY: number): boolean {
 		let startBox: Spot = this._board.getSpot(startX, startY);
 		let endBox: Spot = this._board.getSpot(endX, endY);
-		let move: Move = new Move(player, startBox, endBox);
+		let move: Move = new Move(player, startBox, endBox, player.isWhiteSide());
 		return this.makeMove(move, player);
 	}
-	
+
 	public test(start: Spot, end: Spot) {
 		let newStart = new Spot(start.getX(), start.getY(), new Empty(false));
 		let newEnd = new Spot(end.getX(), end.getY(), start.getPiece());
@@ -77,7 +77,7 @@ export class Game {
 		let destPiece: Piece = move.getStart().getPiece();
 		if (!(destPiece instanceof Empty)) {
 			destPiece.setKilled(true);
-			move.setPieceKilled(destPiece);
+			// move.setPieceKilled(destPiece);
 		}
 
 		//todo castling?
