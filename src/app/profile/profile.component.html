@@ -1,4 +1,4 @@
-<p>{{user!.username}}</p>
-<p>{{user!.email}}</p>
-<p>{{user!.password}}</p>
-<app-comment-list [comments]="user!.comments"></app-comment-list>
+<p>Email: {{profile!.user.email}}</p>
+<p>Username: {{profile!.user.username}}</p>
+<p>Password: {{profile!.user.password}}</p>
+<app-comment-list [comments]="profile!.comments"></app-comment-list>
