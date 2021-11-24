@@ -1,9 +1,19 @@
-<div class=" comment">
-	<div class="info">
-		<h5 class="username">{{comment!.author}}</h5>
+<!--<div class="comment">-->
+<!--	<div class="info">-->
+<!--		<h5 class="username">{{comment!.author}}</h5>-->
+<!--		<p class="created">{{comment!.createdAt}}</p>-->
+<!--	</div>-->
+<!--	<div class="content">-->
+<!--		<p>{{comment!.content}}</p>-->
+<!--	</div>-->
+<!--</div>-->
+
+<div class="comment card bg-light mb-3">
+	<div class="info card-header">
+		<h5 class="username card-title">{{comment!.author}}</h5>
 		<p class="created">{{comment!.createdAt}}</p>
 	</div>
-	<div class="content">
-		<p>{{comment!.content}}</p>
+	<div class="content card-body">
+		<p class="card-text">{{comment!.content}}</p>
 	</div>
 </div>

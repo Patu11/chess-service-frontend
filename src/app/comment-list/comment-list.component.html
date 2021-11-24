@@ -1,11 +1,12 @@
 <div class="commentlist">
-	<div class="form-group">
-		<textarea #textbox (change)="content=textbox.value" class="form-control"
-				  placeholder="Enter comment here"></textarea>
-		<p>Content: {{content}}</p>
-		<button class="addbutton" (click)="onAddComment()">Add comment</button>
+	<h2>Comments:</h2>
+	<div class="input-group mb-3">
+		<input [(ngModel)]="content" type="text" class="form-control" placeholder="Enter comment here"
+			   aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button (click)="onAddComment()" class="btn btn-outline-secondary" type="button">Add comment</button>
+		</div>
 	</div>
-	<!--	<h3>Comments:</h3>-->
 	<div *ngFor="let comment of comments">
 		<app-comment [comment]="comment"></app-comment>
 	</div>
