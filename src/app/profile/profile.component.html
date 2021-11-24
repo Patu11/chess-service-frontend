@@ -1,4 +1,2 @@
-<p>Email: {{profile!.user.email}}</p>
-<p>Username: {{profile!.user.username}}</p>
-<p>Password: {{profile!.user.password}}</p>
+<app-profile-card [user]="profile!.user"></app-profile-card>
 <app-comment-list [comments]="profile!.comments"></app-comment-list>

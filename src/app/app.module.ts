@@ -13,6 +13,7 @@ import {BoardComponent} from './chessview/board/board.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 		BoardComponent,
   ProfileComponent,
   CommentComponent,
-  CommentListComponent
+  CommentListComponent,
+  ProfileCardComponent
 	],
 	imports: [
 		BrowserModule,
