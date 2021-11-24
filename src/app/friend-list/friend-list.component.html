@@ -1,0 +1,16 @@
+<div style="width: 30%; margin:2px;">
+	<ul class="list-group">
+		<li class="list-group-item active">Friends</li>
+		<li *ngFor="let friend of friends" class="list-group-item">
+			<div>
+				<div style="display: inline-block;float:left;">
+					<a href="#">{{friend.user2}}</a>
+				</div>
+				<div>
+					<button style="display: inline-block; float: right;" class="btn btn-primary btn-sm">Invite to game
+					</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

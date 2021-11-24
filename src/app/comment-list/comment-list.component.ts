@@ -19,10 +19,11 @@ export class CommentListComponent implements OnInit {
 
 	onAddComment() {
 		if (this.content.length > 0) {
-			let c = new Comment(this.content, new Date().toISOString().split('T')[0], "asd", 1);
+			let c = new Comment(this.content, new Date().toISOString().split('T')[0], "angular", 1);
 			this.profileService.addComment(c, "asd").subscribe(
 				(response) => {
 					console.log(response);
+					this.content = '';
 				},
 				(error => {
 					console.log(error);

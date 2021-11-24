@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommentComponent } from './comment/comment.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { FriendListComponent } from './friend-list/friend-list.component';
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,8 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
   ProfileComponent,
   CommentComponent,
   CommentListComponent,
-  ProfileCardComponent
+  ProfileCardComponent,
+  FriendListComponent
 	],
 	imports: [
 		BrowserModule,

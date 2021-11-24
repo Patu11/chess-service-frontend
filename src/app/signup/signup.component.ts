@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
 
 	onSignup() {
 		if (!this.checkIfEmptyFields()) {
-			let user = new User(this.email, this.username, this.password, []);
+			let user = new User(this.email, this.username, this.password, [], []);
 			this.userService.createUser(user).subscribe(
 				(response) => {
 					console.log(response);

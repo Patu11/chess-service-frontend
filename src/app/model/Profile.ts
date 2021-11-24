@@ -4,7 +4,7 @@ import {User} from "./User";
 export class Profile {
 	private readonly _profileId: number;
 	private readonly _user: User;
-	private readonly _comments: Array<Comment>;
+	private _comments: Array<Comment>;
 
 	constructor(profileId: number, user: User, comments: Array<Comment>) {
 		this._profileId = profileId;
@@ -22,5 +22,9 @@ export class Profile {
 
 	get comments(): Array<Comment> {
 		return this._comments;
+	}
+	
+	set comments(value: Array<Comment>) {
+		this._comments = value;
 	}
 }

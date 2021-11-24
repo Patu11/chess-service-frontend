@@ -3,6 +3,7 @@ import {UserService} from "../services/user.service";
 import {User} from "../model/User";
 import {ProfileService} from "../services/profile.service";
 import {Profile} from "../model/Profile";
+import {Comment} from "../model/Comment";
 
 @Component({
 	selector: 'app-profile',
@@ -17,12 +18,13 @@ export class ProfileComponent implements OnInit {
 	profile: Profile | undefined;
 
 	constructor(private profileService: ProfileService) {
-		this.profile = new Profile(-1, new User('', '', '', []), []);
+		this.profile = new Profile(-1, new User('', '', '', [], []), []);
 	}
 
 	ngOnInit(): void {
 		this.profileService.getProfile(this.username).subscribe(
 			(response) => {
+				response.comments.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 				this.profile = response;
 			},
 			(error) => {

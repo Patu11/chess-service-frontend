@@ -9,7 +9,7 @@ import {User} from "../model/User";
 export class ProfileCardComponent implements OnInit {
 
 	@Input()
-	user: User = new User('', '', '', []);
+	user: User = new User('', '', '', [], []);
 
 	constructor() {
 	}
