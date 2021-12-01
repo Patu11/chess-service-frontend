@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {ProfileService} from "../services/profile.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
 	selector: 'app-main',

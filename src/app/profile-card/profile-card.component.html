@@ -1,5 +1,6 @@
-<div class="card" style="width: 30%">
-	<img class="card-img-top" src="assets/profile.svg" alt="Card image cap">
+<div class="card" style="width: 30%;margin: 5px;">
+	<img style="margin-top: 5px;" width="200" height="200" class="card-img-top" src="assets/profile.svg"
+		 alt="Card image cap">
 	<div class="centertext card-body">
 		<h5 class="card-title">{{user.username}}</h5>
 		<div class="centertext">
@@ -14,7 +15,7 @@
 				</li>
 			</ul>
 		</div>
-		<button style="margin-right: 5px;" class="btn btn-success">Add friend</button>
+		<button (click)="onAddFriend()" style="margin-right: 5px;" class="btn btn-success">Add friend</button>
 		<button class="btn btn-danger">Edit profile</button>
 	</div>
 </div>

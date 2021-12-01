@@ -1,16 +1,23 @@
-<div style="width: 30%; margin:2px;">
+<div style="width: 30%; margin:5px;">
 	<ul class="list-group">
 		<li class="list-group-item active">Friends</li>
 		<li *ngFor="let friend of friends" class="list-group-item">
-			<div>
+			<div *ngIf="friend.status; else emptyFriend">
 				<div style="display: inline-block;float:left;">
-					<a href="#">{{friend.user2}}</a>
+					<a [routerLink]="['/profile',friend.user2]"
+					   style="text-decoration: none !important;font-size: 20px;"
+					   class="link-primary">{{friend.user2}}</a>
 				</div>
 				<div>
-					<button style="display: inline-block; float: right;" class="btn btn-primary btn-sm">Invite to game
+					<button style="display: inline-block; float: right;" class="btn btn-primary btn-sm">Invite to
+						game
 					</button>
 				</div>
 			</div>
 		</li>
 	</ul>
 </div>
+
+<ng-template #emptyFriend>
+
+</ng-template>

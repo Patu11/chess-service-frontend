@@ -10,11 +10,13 @@ import {SignupComponent} from './signup/signup.component';
 import {HttpClientModule} from "@angular/common/http";
 import {SquareComponent} from './chessview/square/square.component';
 import {BoardComponent} from './chessview/board/board.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CommentComponent } from './comment/comment.component';
-import { CommentListComponent } from './comment-list/comment-list.component';
-import { ProfileCardComponent } from './profile-card/profile-card.component';
-import { FriendListComponent } from './friend-list/friend-list.component';
+import {ProfileComponent} from './profile/profile.component';
+import {CommentComponent} from './comment/comment.component';
+import {CommentListComponent} from './comment-list/comment-list.component';
+import {ProfileCardComponent} from './profile-card/profile-card.component';
+import {FriendListComponent} from './friend-list/friend-list.component';
+import {ModifyAccountComponent} from './modify-account/modify-account.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
 	declarations: [
@@ -24,11 +26,13 @@ import { FriendListComponent } from './friend-list/friend-list.component';
 		SignupComponent,
 		SquareComponent,
 		BoardComponent,
-  ProfileComponent,
-  CommentComponent,
-  CommentListComponent,
-  ProfileCardComponent,
-  FriendListComponent
+		ProfileComponent,
+		CommentComponent,
+		CommentListComponent,
+		ProfileCardComponent,
+		FriendListComponent,
+		ModifyAccountComponent,
+  UserListComponent
 	],
 	imports: [
 		BrowserModule,

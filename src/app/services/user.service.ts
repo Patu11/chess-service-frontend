@@ -27,4 +27,8 @@ export class UserService {
 		return this.http.get<User>(this.userUrl, {'headers': headers});
 	}
 
+	getAllUsers() {
+		return this.http.get<User[]>(this.userUrl + "/all");
+	}
+
 }

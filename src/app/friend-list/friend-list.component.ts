@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Friend} from "../model/Friend";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-friend-list',
@@ -9,7 +10,7 @@ import {Friend} from "../model/Friend";
 export class FriendListComponent implements OnInit {
 
 	@Input()
-	friends: Friend[] = [];
+	friends!: Friend[];
 
 	constructor() {
 	}
