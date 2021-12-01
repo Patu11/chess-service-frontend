@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 	profile: Profile | undefined;
 
 	constructor(private profileService: ProfileService, private route: ActivatedRoute) {
-		this.profile = new Profile(-1, new User('', '', '', [], []), []);
+		this.profile = new Profile(-1, new User('', '', '', [], [], new Set()), []);
 	}
 
 	ngOnInit(): void {

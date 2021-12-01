@@ -10,8 +10,12 @@
 		<label for="password">Password</label>
 		<input [(ngModel)]="password" id="password" type="password" class="form-control" placeholder="Enter password">
 	</div>
+	<div *ngIf="error" class="margin-btm center">
+		<p style="color: red;">Wrong Email or Password</p>
+	</div>
 	<div class="buttons center">
-		<button style="width: 58%; margin-right: 2%;" type="button" class="btn btn-success">Log in</button>
+		<button (click)="onLogin()" style="width: 58%; margin-right: 2%;" type="button" class="btn btn-success">Log in
+		</button>
 		<button [routerLink]="['/signup']" style="width:40%;" type="button" class="btn btn-primary">Sign up</button>
 	</div>
 </div>

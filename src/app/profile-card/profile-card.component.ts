@@ -10,7 +10,7 @@ import {FriendService} from "../services/friend.service";
 export class ProfileCardComponent implements OnInit {
 
 	@Input()
-	user: User = new User('', '', '', [], []);
+	user: User = new User('', '', '', [], [], new Set());
 
 	constructor(private friendService: FriendService) {
 	}

@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class FriendInvitesComponent implements OnInit {
 
 	@Input()
-	user: User = new User('', '', '', [], []);
+	user: User = new User('', '', '', [], [], new Set());
 
 	constructor(private friendService: FriendService) {
 	}

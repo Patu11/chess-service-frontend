@@ -12,6 +12,11 @@ export class UserService {
 	constructor(private http: HttpClient) {
 	}
 
+	login(email: string, password: string) {
+		const headers = new HttpHeaders().set("authorization", this.createBasicToken(email, password));
+		return this.http.get(this.userUrl + '/login', {'headers': headers})
+	}
+
 	createUser(user: User) {
 		const body = {
 			email: user.email,
@@ -22,13 +27,20 @@ export class UserService {
 		return this.http.post<User>(this.userUrl + "/signup", body);
 	}
 
-	getUser(username: string) {
-		const headers = new HttpHeaders().set("username", username);
-		return this.http.get<User>(this.userUrl, {'headers': headers});
+	getUserByUsername(username: string) {
+		return this.http.get<User>(this.userUrl + '/username/' + username);
+	}
+
+	getUserByEmail(email: string) {
+		return this.http.get<User>(this.userUrl + '/email/' + email);
 	}
 
 	getAllUsers() {
 		return this.http.get<User[]>(this.userUrl + "/all");
+	}
+
+	createBasicToken(email: string, password: string) {
+		return 'Basic ' + btoa(email + ':' + password);
 	}
 
 }

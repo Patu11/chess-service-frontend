@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {User} from "../model/User";
+import {Role} from "../model/Role";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-signup',
@@ -15,15 +17,15 @@ export class SignupComponent implements OnInit {
 	username: string = '';
 	password: string = '';
 
-	constructor(private userService: UserService) {
+	constructor(private userService: UserService, private route: Router) {
 	}
 
 	onSignup() {
 		if (!this.checkIfEmptyFields()) {
-			let user = new User(this.email, this.username, this.password, [], []);
+			let user = new User(this.email, this.username, this.password, [], [], new Set<Role>([new Role('USER')]));
 			this.userService.createUser(user).subscribe(
 				(response) => {
-					console.log(response);
+					this.route.navigate(['/login']);
 				},
 				error => {
 					console.log(error);

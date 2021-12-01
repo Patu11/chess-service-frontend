@@ -14,8 +14,8 @@ export class ProfileService {
 	}
 
 	getProfile(username: string) {
-		const headers = new HttpHeaders().set("username", username);
-		return this.http.get<Profile>(this.profileUrl, {'headers': headers});
+		const headers = new HttpHeaders().set("authorization", this.createBasicToken('user1@gmail.com', 'user1'));
+		return this.http.get<Profile>(this.profileUrl + '/' + username, {'headers': headers});
 	}
 
 	addComment(comment: Comment, username: string) {
@@ -27,5 +27,9 @@ export class ProfileService {
 			profileId: comment.profileId
 		};
 		return this.http.post<Comment>(this.profileUrl + "/addcomment", body);
+	}
+
+	createBasicToken(email: string, password: string) {
+		return 'Basic ' + btoa(email + ':' + password);
 	}
 }
