@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
 	providedIn: 'root'
 })
 export class FriendService {
-	profileUrl: string = 'http://localhost:8080/friends'
+	friendUrl: string = 'http://localhost:8080/friends'
 
 	constructor(private http: HttpClient) {
 	}
@@ -16,6 +16,20 @@ export class FriendService {
 			user2: user2,
 			status: false
 		}
-		return this.http.post(this.profileUrl, body);
+		return this.http.post(this.friendUrl, body);
+	}
+
+	acceptFriendship(user1: string, user2: string) {
+		const body = {
+			user1: user1,
+			user2: user2,
+			status: false
+		}
+
+		return this.http.put(this.friendUrl + '/accept', body);
+	}
+
+	declineFriendship(user1: string, user2: string) {
+		return this.http.delete(this.friendUrl + '/delete/' + user1 + "/" + user2);
 	}
 }

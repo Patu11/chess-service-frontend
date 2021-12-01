@@ -17,6 +17,7 @@ import {ProfileCardComponent} from './profile-card/profile-card.component';
 import {FriendListComponent} from './friend-list/friend-list.component';
 import {ModifyAccountComponent} from './modify-account/modify-account.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { FriendInvitesComponent } from './friend-invites/friend-invites.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { UserListComponent } from './user-list/user-list.component';
 		ProfileCardComponent,
 		FriendListComponent,
 		ModifyAccountComponent,
-  UserListComponent
+  UserListComponent,
+  FriendInvitesComponent
 	],
 	imports: [
 		BrowserModule,

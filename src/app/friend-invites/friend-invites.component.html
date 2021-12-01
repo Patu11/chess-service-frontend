@@ -1,0 +1,24 @@
+<div style="width: 30%; margin:5px;">
+	<ul class="list-group">
+		<li class="list-group-item active">Messages</li>
+		<li *ngFor="let friend of user.friends" class="list-group-item">
+			<div *ngIf="!friend.status">
+				<div style="display: inline-block;float:left;">
+					<a [routerLink]="['/profile',friend.user2]"
+					   style="text-decoration: none !important;font-size: 20px;"
+					   class="link-primary">{{friend.user2}}</a>
+				</div>
+				<div>
+					<button (click)="onDecline(friend)" style="display: inline-block; float: right;"
+							class="btn btn-danger btn-sm">Decline
+					</button>
+				</div>
+				<div style="margin-right: 70px;">
+					<button (click)="onAccept(friend)" style="display: inline-block; float: right;"
+							class="btn btn-success btn-sm">Accept
+					</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

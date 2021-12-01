@@ -1,0 +1,19 @@
+<div style="width: 30%; margin:5px;">
+	<ul class="list-group">
+		<li class="list-group-item active">Users</li>
+		<li *ngFor="let user of users" class="list-group-item">
+			<div>
+				<div style="display: inline-block;float:left;">
+
+					<a [routerLink]="['/profile',user.username]"
+					   style="text-decoration: none !important;font-size: 20px;"
+					   class="link-primary">{{user.username}}</a>
+				</div>
+				<div>
+					<button style="display: inline-block; float: right;" class="btn btn-danger btn-sm">Delete user
+					</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
