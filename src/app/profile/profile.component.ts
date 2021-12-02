@@ -37,16 +37,5 @@ export class ProfileComponent implements OnInit {
 			);
 
 		});
-
-		// this.profileService.getProfile(this.username).subscribe(
-		// 	(response) => {
-		// 		response.comments.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
-		// 		this.profile = response;
-		// 	},
-		// 	(error) => {
-		// 		console.log(error);
-		// 	}
-		// );
 	}
-
 }

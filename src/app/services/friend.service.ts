@@ -29,6 +29,10 @@ export class FriendService {
 		return this.http.put(this.friendUrl + '/accept', body);
 	}
 
+	checkFriendShip(user1: string, user2: string) {
+		return this.http.get(this.friendUrl + '/' + user1 + '/' + user2, {responseType: 'json'});
+	}
+
 	declineFriendship(user1: string, user2: string) {
 		return this.http.delete(this.friendUrl + '/delete/' + user1 + "/" + user2);
 	}
