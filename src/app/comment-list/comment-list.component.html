@@ -1,5 +1,4 @@
 <div class="commentlist">
-<!--	<h2>Comments:</h2>-->
 	<div class="input-group mb-3">
 		<input [(ngModel)]="content" type="text" class="form-control" placeholder="Enter comment here"
 			   aria-describedby="basic-addon2">
@@ -7,14 +6,16 @@
 			<button (click)="onAddComment()" class="btn btn-primary" type="button">Add comment</button>
 		</div>
 	</div>
-	<ul class="scroll list-group">
-		<li *ngFor="let comment of comments">
-			<div>
-				<app-comment [comment]="comment"></app-comment>
-			</div>
-		</li>
-	</ul>
-	<!--	<div *ngFor="let comment of comments">-->
-	<!--		<app-comment [comment]="comment"></app-comment>-->
-	<!--	</div>-->
+	<div>
+		<p class="text-danger text-center" *ngIf="error">{{errorMessage}}</p>
+	</div>
+	<div>
+		<ul class="scroll list-group">
+			<li *ngFor="let comment of comments">
+				<div>
+					<app-comment [comment]="comment"></app-comment>
+				</div>
+			</li>
+		</ul>
+	</div>
 </div>

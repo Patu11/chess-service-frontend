@@ -12,14 +12,25 @@ export class CommentListComponent implements OnInit {
 	@Input()
 	comments?: Comment[];
 
+	@Input()
+	profileId?: string;
+
 	content: string = '';
+	error: boolean = false;
+	errorMessage: string = '';
 
 	constructor(private profileService: ProfileService) {
 	}
 
 	onAddComment() {
+		let username = sessionStorage.getItem('USER_USERNAME');
+		if (!username) {
+			this.error = true;
+			this.errorMessage = 'You must login to comment';
+			return;
+		}
 		if (this.content.length > 0) {
-			let c = new Comment(this.content, new Date().toISOString().split('T')[0], "angular", 1);
+			let c = new Comment(this.content, new Date().toISOString().split('T')[0], username, Number(this.profileId));
 			this.profileService.addComment(c, "asd").subscribe(
 				(response) => {
 					console.log(response);
@@ -27,7 +38,11 @@ export class CommentListComponent implements OnInit {
 				},
 				(error => {
 					console.log(error);
+					this.error = true;
 				}));
+		} else {
+			this.error = true;
+			this.errorMessage = 'The comment cannot be empty';
 		}
 	}
 

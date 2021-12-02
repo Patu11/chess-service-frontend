@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<app-profile-card [user]="profile!.user"></app-profile-card>
-		<app-comment-list [comments]="profile!.comments"></app-comment-list>
+		<app-comment-list profileId="{{profile!.profileId}}" [comments]="profile!.comments"></app-comment-list>
 	</div>
 	<div>
 		<app-friend-list [friends]="profile!.user.friends"></app-friend-list>
