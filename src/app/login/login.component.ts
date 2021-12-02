@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {User} from "../model/User";
+import {Role} from "../model/Role";
+import {SimpleToken} from "../model/SimpleToken";
+import {TokenParser} from "../model/TokenParser";
 
 @Component({
 	selector: 'app-login',
@@ -20,17 +23,15 @@ export class LoginComponent implements OnInit {
 	onLogin() {
 		this.userService.login(this.email, this.password).subscribe(
 			response => {
-				this.userService.getUserByEmail(this.email).subscribe(
-					response => {
-						console.log(response);
-					},
-					error => {
-						console.log(error);
-					}
-				);
+				let parser = new TokenParser(response.token);
+				sessionStorage.setItem('USER_EMAIL', this.email);
+				sessionStorage.setItem('USER_PASSWORD', this.password);
+				sessionStorage.setItem('USER_USERNAME', parser.username);
+				sessionStorage.setItem('USER_ROLES', parser.roles);
 				this.route.navigate(['/home']);
 			},
 			error => {
+				console.log(error);
 				this.error = true;
 			}
 		);

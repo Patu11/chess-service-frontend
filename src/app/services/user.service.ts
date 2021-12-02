@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../model/User";
+import {Role} from "../model/Role";
+import {SimpleToken} from "../model/SimpleToken";
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +16,7 @@ export class UserService {
 
 	login(email: string, password: string) {
 		const headers = new HttpHeaders().set("authorization", this.createBasicToken(email, password));
-		return this.http.get(this.userUrl + '/login', {'headers': headers})
+		return this.http.get<SimpleToken>(this.userUrl + '/login', {'headers': headers})
 	}
 
 	createUser(user: User) {
@@ -33,6 +35,10 @@ export class UserService {
 
 	getUserByEmail(email: string) {
 		return this.http.get<User>(this.userUrl + '/email/' + email);
+	}
+
+	getUserRolesByEmail(email: string) {
+		return this.http.get<Set<Role>>(this.userUrl + '/role/' + email);
 	}
 
 	getAllUsers() {

@@ -7,7 +7,7 @@ import {MainComponent} from './main/main.component';
 import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {SignupComponent} from './signup/signup.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SquareComponent} from './chessview/square/square.component';
 import {BoardComponent} from './chessview/board/board.component';
 import {ProfileComponent} from './profile/profile.component';
@@ -16,8 +16,9 @@ import {CommentListComponent} from './comment-list/comment-list.component';
 import {ProfileCardComponent} from './profile-card/profile-card.component';
 import {FriendListComponent} from './friend-list/friend-list.component';
 import {ModifyAccountComponent} from './modify-account/modify-account.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { FriendInvitesComponent } from './friend-invites/friend-invites.component';
+import {UserListComponent} from './user-list/user-list.component';
+import {FriendInvitesComponent} from './friend-invites/friend-invites.component';
+import {TokenInterceptorService} from "./services/token-interceptor.service";
 
 @NgModule({
 	declarations: [
@@ -33,8 +34,8 @@ import { FriendInvitesComponent } from './friend-invites/friend-invites.componen
 		ProfileCardComponent,
 		FriendListComponent,
 		ModifyAccountComponent,
-  UserListComponent,
-  FriendInvitesComponent
+		UserListComponent,
+		FriendInvitesComponent
 	],
 	imports: [
 		BrowserModule,
@@ -42,7 +43,7 @@ import { FriendInvitesComponent } from './friend-invites/friend-invites.componen
 		FormsModule,
 		HttpClientModule
 	],
-	providers: [],
+	providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
