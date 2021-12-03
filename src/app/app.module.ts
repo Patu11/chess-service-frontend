@@ -19,6 +19,10 @@ import {ModifyAccountComponent} from './modify-account/modify-account.component'
 import {UserListComponent} from './user-list/user-list.component';
 import {FriendInvitesComponent} from './friend-invites/friend-invites.component';
 import {TokenInterceptorService} from "./services/token-interceptor.service";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
 	declarations: [
@@ -35,13 +39,17 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
 		FriendListComponent,
 		ModifyAccountComponent,
 		UserListComponent,
-		FriendInvitesComponent
+		FriendInvitesComponent,
+  HomePageComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		FormsModule,
-		HttpClientModule
+		HttpClientModule,
+		BrowserAnimationsModule,
+		ModalModule.forRoot(),
+		BsDropdownModule.forRoot(),
 	],
 	providers: [{provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
 	bootstrap: [AppComponent]

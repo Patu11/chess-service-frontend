@@ -9,11 +9,22 @@ import {ProfileService} from "../services/profile.service";
 	providers: [UserService, ProfileService]
 })
 export class MainComponent implements OnInit {
+
+	username: string = '';
+
 	constructor() {
 
 	}
 
+	onLogOut() {
+		sessionStorage.clear();
+		this.username = '';
+	}
+
 	ngOnInit(): void {
+		if (sessionStorage.getItem('USER_USERNAME')) {
+			this.username = sessionStorage.getItem('USER_USERNAME')!;
+		}
 	}
 
 }
