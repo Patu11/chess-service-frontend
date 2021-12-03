@@ -16,9 +16,19 @@ export class UserListComponent implements OnInit {
 		this.userService.getAllUsers().subscribe(
 			(response) => {
 				this.users = response;
-				console.log(response);
 			},
 			(error) => {
+				console.log(error);
+			}
+		);
+	}
+
+	onDelete(user: User) {
+		this.userService.deleteUserByEmail(user.email).subscribe(
+			response => {
+				console.log(response);
+			},
+			error => {
 				console.log(error);
 			}
 		);

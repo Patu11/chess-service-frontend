@@ -33,6 +33,10 @@ export class FriendService {
 		return this.http.get(this.friendUrl + '/' + user1 + '/' + user2, {responseType: 'json'});
 	}
 
+	deleteFriendship(user1: string, user2: string) {
+		return this.http.delete(this.friendUrl + '/delete/' + user1 + "/" + user2);
+	}
+
 	declineFriendship(user1: string, user2: string) {
 		return this.http.delete(this.friendUrl + '/delete/' + user1 + "/" + user2);
 	}

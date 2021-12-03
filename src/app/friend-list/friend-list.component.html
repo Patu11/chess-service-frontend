@@ -9,6 +9,21 @@
 					   class="link-primary">{{friend.user2}}</a>
 				</div>
 				<div>
+					<div style="display: inline-block; float: right; margin-left: 5px;" class="btn-group" dropdown>
+						<button id="button-basic"
+								dropdownToggle type="button"
+								class="btn btn-danger btn-sm dropdown-toggle"
+								aria-controls="dropdown-basic">
+							Settings
+						</button>
+						<ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+							role="menu" aria-labelledby="button-basic">
+							<li role="menuitem">
+								<button (click)="onRemoveFriend(friend)" class="dropdown-item">Remove friend</button>
+							</li>
+
+						</ul>
+					</div>
 					<button style="display: inline-block; float: right;" class="btn btn-primary btn-sm">Invite to
 						game
 					</button>

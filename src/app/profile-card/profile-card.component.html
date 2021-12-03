@@ -17,7 +17,46 @@
 		</div>
 		<button [class.disabled]="alreadySent" (click)="onAddFriend()" style="margin-right: 5px;"
 				class="btn btn-success">{{addFriendButtonText}}</button>
-		<button (click)="onEditProfile()" class="btn btn-danger">Edit profile</button>
+		<button *ngIf="owner" (click)="onEditProfile(editAccountModal)" class="btn btn-danger">Edit profile</button>
 	</div>
 </div>
 
+<ng-template #editAccountModal>
+	<div style="width: 98%; text-align: center;margin: 5px;">
+		<h1 style="text-align: center;">Edit your account</h1>
+		<div>
+			<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="passwordinput">
+						<i class="bi bi-key"></i>
+					</span>
+					<input [(ngModel)]="newPassword" type="password" class="form-control" placeholder="New password"
+						   aria-label="New password"
+						   aria-describedby="passwordinput">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="passwordconfirminput">
+						<i class="bi bi-check"></i>
+					</span>
+					<input [(ngModel)]="confirmPassword" type="password" class="form-control"
+						   placeholder="Confirm password"
+						   aria-label="Confirm password"
+						   aria-describedby="passwordconfirminput">
+				</div>
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="passwordcurrentinput">
+						<i class="bi bi-key"></i>
+					</span>
+					<input [(ngModel)]="currentPassword" type="password" class="form-control"
+						   placeholder="Current password"
+						   aria-label="Current password"
+						   aria-describedby="passwordcurrentinput">
+				</div>
+				<p *ngIf="showPasswordStatus"
+				   [ngClass]="newPasswordError?'text-danger':'text-success'">{{passwordStatusMessage}}</p>
+				<button (click)="onSavePassword()" class="btn btn-primary">Save Password</button>
+			</div>
+		</div>
+	</div>
+
+</ng-template>

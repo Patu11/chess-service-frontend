@@ -10,7 +10,8 @@
 					   class="link-primary">{{user.username}}</a>
 				</div>
 				<div>
-					<button style="display: inline-block; float: right;" class="btn btn-danger btn-sm">Delete user
+					<button (click)="onDelete(user)" style="display: inline-block; float: right;"
+							class="btn btn-danger btn-sm">Delete user
 					</button>
 				</div>
 			</div>

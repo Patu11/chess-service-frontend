@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class TokenInterceptorService implements HttpInterceptor {
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		if (!req.url.includes('/users/login') && !req.url.includes('/users/signup')) {
+		if (!req.url.includes('/users/login') && !req.url.includes('/users/signup') && !req.url.includes('/users/delete')) {
 			const email = sessionStorage.getItem('USER_EMAIL');
 			const password = sessionStorage.getItem('USER_PASSWORD');
 			let userToken = '';

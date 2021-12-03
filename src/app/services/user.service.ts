@@ -45,8 +45,26 @@ export class UserService {
 		return this.http.get<User[]>(this.userUrl + "/all");
 	}
 
+
+	updatePassword(username: string, password: string) {
+		const body = {
+			password: password
+		};
+		return this.http.put(this.userUrl + '/editpassword/' + username, body);
+	}
+
+	updateEmail(username: string, email: string) {
+		const body = {
+			email: email
+		};
+		return this.http.put(this.userUrl + '/editemail/' + username, body);
+	}
+
+	deleteUserByEmail(email: string) {
+		return this.http.delete(this.userUrl + '/delete/' + email);
+	}
+
 	createBasicToken(email: string, password: string) {
 		return 'Basic ' + btoa(email + ':' + password);
 	}
-
 }
