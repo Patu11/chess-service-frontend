@@ -1,20 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../services/user.service";
-import {ProfileService} from "../services/profile.service";
 import {Router} from "@angular/router";
 
 @Component({
-	selector: 'app-main',
-	templateUrl: './main.component.html',
-	styleUrls: ['./main.component.css'],
-	providers: [UserService, ProfileService]
+	selector: 'app-navbar',
+	templateUrl: './navbar.component.html',
+	styleUrls: ['./navbar.component.css']
 })
-export class MainComponent implements OnInit {
-
+export class NavbarComponent implements OnInit {
 	username: string = '';
 
 	constructor(private route: Router) {
-
 	}
 
 	onLogOut() {

@@ -23,6 +23,7 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HomePageComponent } from './home-page/home-page.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
 	declarations: [
@@ -40,7 +41,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 		ModifyAccountComponent,
 		UserListComponent,
 		FriendInvitesComponent,
-  HomePageComponent
+  HomePageComponent,
+  NavbarComponent
 	],
 	imports: [
 		BrowserModule,
