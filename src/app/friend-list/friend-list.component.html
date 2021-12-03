@@ -8,8 +8,9 @@
 					   style="text-decoration: none !important;font-size: 20px;"
 					   class="link-primary">{{friend.user2}}</a>
 				</div>
-				<div>
-					<div style="display: inline-block; float: right; margin-left: 5px;" class="btn-group" dropdown>
+				<div *ngIf="owner">
+					<div style="display: inline-block; float: right; margin-left: 5px;" class="btn-group"
+						 dropdown>
 						<button id="button-basic"
 								dropdownToggle type="button"
 								class="btn btn-danger btn-sm dropdown-toggle"

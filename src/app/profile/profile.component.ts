@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 	link: string = '';
 	profile: Profile | undefined;
 	usernameEmpty: boolean = false;
+	owner: boolean = false;
 
 	constructor(private profileService: ProfileService, private route: ActivatedRoute) {
 		this.profile = new Profile(-1, new User('', '', '', [], [], new Set()), []);
@@ -42,6 +43,8 @@ export class ProfileComponent implements OnInit {
 					(response) => {
 						response.comments.sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
 						this.profile = response;
+						let username = sessionStorage.getItem('USER_USERNAME');
+						this.owner = username === this.profile.user.username;
 					},
 					(error) => {
 						console.log(error);

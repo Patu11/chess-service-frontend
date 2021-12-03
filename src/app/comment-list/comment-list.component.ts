@@ -15,6 +15,9 @@ export class CommentListComponent implements OnInit {
 	@Input()
 	profileId?: string;
 
+	@Input()
+	owner: boolean = false;
+
 	content: string = '';
 	error: boolean = false;
 	errorMessage: string = '';

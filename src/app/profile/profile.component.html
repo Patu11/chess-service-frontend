@@ -1,17 +1,18 @@
 <div>
 	<div *ngIf="!usernameEmpty">
 		<div>
-			<app-profile-card [user]="profile!.user"></app-profile-card>
-			<app-comment-list profileId="{{profile!.profileId}}" [comments]="profile!.comments"></app-comment-list>
+			<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>
+			<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"
+							  [comments]="profile!.comments"></app-comment-list>
 		</div>
 		<div>
-			<app-friend-list [friends]="profile!.user.friends"></app-friend-list>
+			<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>
 		</div>
 		<div>
 			<app-friend-invites [user]="profile!.user"></app-friend-invites>
 		</div>
 	</div>
-	<div class="text-center m-5" *ngIf="usernameEmpty">
+	<div *ngIf="usernameEmpty" class="text-center m-5">
 		<h1 class="display-1">You must be logged in to view your profile</h1>
 	</div>
 </div>

@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
-import {User} from "../model/User";
-import {Role} from "../model/Role";
-import {SimpleToken} from "../model/SimpleToken";
 import {TokenParser} from "../model/TokenParser";
 
 @Component({
@@ -29,6 +26,7 @@ export class LoginComponent implements OnInit {
 				sessionStorage.setItem('USER_USERNAME', parser.username);
 				sessionStorage.setItem('USER_ROLES', parser.roles);
 				this.route.navigate(['/home']);
+				// this.route.navigateByUrl('/home');
 			},
 			error => {
 				console.log(error);

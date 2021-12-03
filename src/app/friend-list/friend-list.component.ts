@@ -12,6 +12,9 @@ export class FriendListComponent implements OnInit {
 	@Input()
 	friends!: Friend[];
 
+	@Input()
+	owner: boolean = false;
+
 	constructor(private friendService: FriendService) {
 	}
 

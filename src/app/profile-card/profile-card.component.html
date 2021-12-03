@@ -15,7 +15,7 @@
 				</li>
 			</ul>
 		</div>
-		<button [class.disabled]="alreadySent" (click)="onAddFriend()" style="margin-right: 5px;"
+		<button *ngIf="!owner" [class.disabled]="alreadySent" (click)="onAddFriend()" style="margin-right: 5px;"
 				class="btn btn-success">{{addFriendButtonText}}</button>
 		<button *ngIf="owner" (click)="onEditProfile(editAccountModal)" class="btn btn-danger">Edit profile</button>
 	</div>

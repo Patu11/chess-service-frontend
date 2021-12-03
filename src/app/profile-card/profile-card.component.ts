@@ -24,6 +24,7 @@ export class ProfileCardComponent implements OnInit {
 	newPasswordError: boolean = false;
 	currentPassword: string = '';
 
+	@Input()
 	owner: boolean = false;
 
 	constructor(private friendService: FriendService, private userService: UserService, private modalService: BsModalService) {
@@ -45,7 +46,7 @@ export class ProfileCardComponent implements OnInit {
 	onSavePassword() {
 		let username = sessionStorage.getItem('USER_USERNAME');
 		let currentPasswordStorage = sessionStorage.getItem('USER_PASSWORD');
-		
+
 		if (currentPasswordStorage && this.currentPassword === currentPasswordStorage && username && this.confirmPassword && this.newPassword && this.newPassword === this.confirmPassword) {
 			this.userService.updatePassword(username, this.newPassword).subscribe(
 				response => {
@@ -96,7 +97,7 @@ export class ProfileCardComponent implements OnInit {
 				let username = sessionStorage.getItem('USER_USERNAME');
 
 				if (username && this.user.username) {
-					this.owner = username === this.user.username;
+					// this.owner = username === this.user.username;
 					this.friendService.checkFriendShip(username, this.user.username).subscribe(
 						(response: any) => {
 							this.alreadySent = response['friendshipExists'];
