@@ -26,11 +26,7 @@ export class ProfileComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes['username']) {
-			if (this.username) {
-				this.usernameEmpty = false;
-			} else {
-				this.usernameEmpty = true;
-			}
+			this.usernameEmpty = !this.username;
 		}
 	}
 

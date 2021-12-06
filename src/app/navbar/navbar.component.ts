@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {DataService} from "../services/data.service";
+import {Subscription} from "rxjs";
+import {LoginState} from "../model/LoginState";
 
 @Component({
 	selector: 'app-navbar',
@@ -8,13 +11,14 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 	username: string = '';
+	subscription?: Subscription;
 
-	constructor(private route: Router) {
+	constructor(private route: Router, private dataService: DataService) {
 	}
 
 	onLogOut() {
 		sessionStorage.clear();
-		this.username = '';
+		this.dataService.changeMessage(new LoginState('', '', '', ''));
 	}
 
 	onProfileClick() {
@@ -28,9 +32,13 @@ export class NavbarComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (sessionStorage.getItem('USER_USERNAME')) {
-			this.username = sessionStorage.getItem('USER_USERNAME')!;
-		}
+		this.subscription = this.dataService.currentMessage.subscribe(state => {
+			this.username = state.username
+		});
+	}
+
+	ngOnDestroy() {
+		this.subscription!.unsubscribe();
 	}
 
 }

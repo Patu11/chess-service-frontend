@@ -40,9 +40,18 @@ export class Game {
 		return this._board;
 	}
 
-	public playerMove(player: Player, startX: number, startY: number, endX: number, endY: number): boolean {
-		let startBox: Spot = this._board.getSpot(startX, startY);
-		let endBox: Spot = this._board.getSpot(endX, endY);
+	// public playerMove(player: Player, startX: number, startY: number, endX: number, endY: number): boolean {
+	// 	let startBox: Spot = this._board.getSpot(startX, startY);
+	// 	let endBox: Spot = this._board.getSpot(endX, endY);
+	// 	let move: Move = new Move(player, startBox, endBox, player.isWhiteSide());
+	// 	return this.makeMove(move, player);
+	// }
+
+	public playerMove(player: Player, start: Spot, end: Spot): boolean {
+
+
+		let startBox: Spot = this._board.getSpot(start.getX(), start.getY());
+		let endBox: Spot = this._board.getSpot(end.getX(), end.getY());
 		let move: Move = new Move(player, startBox, endBox, player.isWhiteSide());
 		return this.makeMove(move, player);
 	}

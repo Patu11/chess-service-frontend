@@ -1,18 +1,69 @@
 <div>
-	<div *ngIf="!usernameEmpty">
-		<div>
-			<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>
-			<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"
-							  [comments]="profile!.comments"></app-comment-list>
-		</div>
-		<div>
-			<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>
-		</div>
-		<div>
-			<app-friend-invites [user]="profile!.user"></app-friend-invites>
+	<div class="container" *ngIf="!usernameEmpty">
+		<div class="row">
+			<div class="col-sm-4" *ngIf="owner" style="float:left;">
+				<app-friend-invites [user]="profile!.user"></app-friend-invites>
+			</div>
+			<div class="col-sm-4">
+				<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>
+				<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"
+								  [comments]="profile!.comments"></app-comment-list>
+			</div>
+			<!--			<div style="float:left;">-->
+			<!--				<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"-->
+			<!--								  [comments]="profile!.comments"></app-comment-list>-->
+			<!--			</div>-->
+			<div class="col-sm-4">
+				<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>
+			</div>
 		</div>
 	</div>
 	<div *ngIf="usernameEmpty" class="text-center m-5">
 		<h1 class="display-1">You must be logged in to view your profile</h1>
 	</div>
 </div>
+
+<!--<div>-->
+<!--	<div *ngIf="!usernameEmpty">-->
+<!--		<div class="d-flex justify-content-center">-->
+<!--			<div style="float:left;">-->
+<!--				<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>-->
+<!--				<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"-->
+<!--								  [comments]="profile!.comments"></app-comment-list>-->
+<!--			</div>-->
+<!--			&lt;!&ndash;			<div style="float:left;">&ndash;&gt;-->
+<!--			&lt;!&ndash;				<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"&ndash;&gt;-->
+<!--			&lt;!&ndash;								  [comments]="profile!.comments"></app-comment-list>&ndash;&gt;-->
+<!--			&lt;!&ndash;			</div>&ndash;&gt;-->
+<!--			<div style="float:left;">-->
+<!--				<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>-->
+<!--			</div>-->
+<!--			<div *ngIf="owner" style="float:left;">-->
+<!--				<app-friend-invites [user]="profile!.user"></app-friend-invites>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	<div *ngIf="usernameEmpty" class="text-center m-5">-->
+<!--		<h1 class="display-1">You must be logged in to view your profile</h1>-->
+<!--	</div>-->
+<!--</div>-->
+
+
+<!--<div>-->
+<!--	<div *ngIf="!usernameEmpty">-->
+<!--		<div>-->
+<!--			<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>-->
+<!--			<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"-->
+<!--							  [comments]="profile!.comments"></app-comment-list>-->
+<!--		</div>-->
+<!--		<div>-->
+<!--			<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>-->
+<!--		</div>-->
+<!--		<div>-->
+<!--			<app-friend-invites [user]="profile!.user"></app-friend-invites>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	<div *ngIf="usernameEmpty" class="text-center m-5">-->
+<!--		<h1 class="display-1">You must be logged in to view your profile</h1>-->
+<!--	</div>-->
+<!--</div>-->

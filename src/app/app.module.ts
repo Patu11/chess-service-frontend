@@ -22,8 +22,8 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { HomePageComponent } from './home-page/home-page.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import {HomePageComponent} from './home-page/home-page.component';
+import {NavbarComponent} from './navbar/navbar.component';
 
 @NgModule({
 	declarations: [
@@ -41,8 +41,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 		ModifyAccountComponent,
 		UserListComponent,
 		FriendInvitesComponent,
-  HomePageComponent,
-  NavbarComponent
+		HomePageComponent,
+		NavbarComponent
 	],
 	imports: [
 		BrowserModule,

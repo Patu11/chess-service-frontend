@@ -50,8 +50,7 @@ export class King extends Piece {
 		}
 	}
 
-	public canCastle(board: Board): boolean {
-		if (!this.isMoved() && !this.inCheck(board)) {
+	public canCastle(board: Board): boolean {if (!this.isMoved() && !this.inCheck(board)) {
 			for (let spots of board.getSpots()) {
 				for (let spot of spots) {
 					if ((spot.getPiece() instanceof Rook) && (spot.getPiece().isWhite() == this.isWhite()) && !spot.getPiece().isMoved()) {
