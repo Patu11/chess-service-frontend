@@ -48,8 +48,6 @@ export class Game {
 	// }
 
 	public playerMove(player: Player, start: Spot, end: Spot): boolean {
-
-
 		let startBox: Spot = this._board.getSpot(start.getX(), start.getY());
 		let endBox: Spot = this._board.getSpot(end.getX(), end.getY());
 		let move: Move = new Move(player, startBox, endBox, player.isWhiteSide());
@@ -59,6 +57,8 @@ export class Game {
 	public test(start: Spot, end: Spot) {
 		let newStart = new Spot(start.getX(), start.getY(), new Empty(false));
 		let newEnd = new Spot(end.getX(), end.getY(), start.getPiece());
+
+		// let move: Move = new Move();
 
 		this.getBoard().getSpots()[start.getX()][start.getY()] = newStart;
 		this.getBoard().getSpots()[end.getX()][end.getY()] = newEnd;

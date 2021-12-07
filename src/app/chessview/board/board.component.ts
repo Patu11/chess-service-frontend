@@ -1,13 +1,11 @@
-import {Component, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Spot} from "../../model/chess/Spot";
 import {Game} from "../../model/chess/Game";
 import {Player} from "../../model/chess/Player";
 import {Empty} from "../../model/chess/figures/Empty";
 import {Pawn} from "../../model/chess/figures/Pawn";
-import {King} from "../../model/chess/figures/King";
 import {WebsocketService} from "../../services/websocket.service";
 import {GameState} from "../../model/GameState";
-import {plainToClass, plainToInstance} from "class-transformer";
 
 @Component({
 	selector: 'app-board',
@@ -28,10 +26,15 @@ export class BoardComponent implements OnInit {
 				this.websocketService.getGameState('asd123').subscribe(
 					state => {
 						if (state) {
-							const parsed = JSON.parse(state)
-							let source: Spot = this.game.getBoard().getSpot(parsed.sourceX, parsed.sourceY);
-							let target: Spot = this.game.getBoard().getSpot(parsed.targetX, parsed.targetY);
-							this.game.test(source, target);
+							if (state.boardState) {
+								this.game.getBoard().fromString(state.boardState);
+							}
+							// if (state.boardState) {
+							// 	console.log(state.boardState);
+							// 	this.game.getBoard().fromString(state.boardState);
+							// }
+							// const parsed: string[][] = JSON.parse(state)
+							// this.game.getBoard().fromString(parsed);
 						}
 					}
 				);
@@ -44,14 +47,23 @@ export class BoardComponent implements OnInit {
 		if (this.currentClicked == undefined && !(spot.getPiece() instanceof Empty)) {
 			this.currentClicked = spot;
 		} else {
-			if (spot != this.currentClicked/* && this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)*/) {
-				const data = {
-					sourceX: this.currentClicked?.getX(),
-					sourceY: this.currentClicked?.getY(),
-					targetX: spot.getX(),
-					targetY: spot.getY()
+			if (spot != this.currentClicked) {
+				if (this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)) {
+					let sourceX = this.currentClicked?.getX();
+					let sourceY = this.currentClicked?.getY();
+					let targetX = spot.getX();
+					let targetY = spot.getY();
+
+
+					let source: Spot = this.game.getBoard().getSpot(sourceX!, sourceY!);
+					let target: Spot = this.game.getBoard().getSpot(targetX!, targetY!);
+					this.game.test(source, target);
+
+					const board: string[][] = this.game.getBoard().toString()
+					let gs: GameState = new GameState();
+					gs.setBoardState(board);
+					this.websocketService.sendGameState(gs, 'asd123');
 				}
-				this.websocketService.sendGameState(data, 'asd123');
 				this.currentClicked = undefined;
 			}
 		}

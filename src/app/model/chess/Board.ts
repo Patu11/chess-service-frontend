@@ -8,6 +8,7 @@ import {King} from "./figures/King";
 import {Empty} from "./figures/Empty";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {Piece} from "./figures/Piece";
+import {Move} from "./Move";
 
 export class Board {
 	private _spots: Spot[][];
@@ -28,30 +29,50 @@ export class Board {
 		return out;
 	}
 
-	private parseFEN(fen: string): Spot[][] {
-		let tab: Spot[][] = [];
+	public fromString(board: string[][]) {
+		let spots: Spot[][] = [];
 		for (let i = 0; i < 8; i++) {
-			tab[i] = [];
+			spots[i] = [];
 			for (let j = 0; j < 8; j++) {
-				tab[i][j] = new Spot(i, j, new Empty(false));
+				let p: Piece = this.getPieceFromLetter(board[i][j]);
+				spots[i][j] = new Spot(i, j, p);
 			}
 		}
+		this._spots = spots;
+	}
 
-		let parts = fen.split('/');
-		for (let i = 0; i < parts.length; i++) {
-			for (let j = 0; j < parts[i].length; j++) {
-				let el = parts[i][j];
-				if (isNumeric(el)) {
-					for (let k = 0; k < Number(el); k++) {
-						tab[i][j + k] = new Spot(i, j, new Empty(false));
-					}
-				} else {
-					tab[i][j] = new Spot(i, j, this.getPieceFromLetter(el));
-				}
+	public toString(): string[][] {
+		let spots: string[][] = [];
+		for (let i = 0; i < 8; i++) {
+			spots[i] = [];
+			for (let j = 0; j < 8; j++) {
+				let p: Piece = this._spots[i][j].getPiece();
+				spots[i][j] = this.getLetterFromPiece(p);
 			}
 		}
+		return spots;
+	}
 
-		return tab;
+	getLetterFromPiece(piece: Piece): string {
+		let out: string;
+
+		if (piece instanceof King) {
+			out = piece.isWhite() ? 'K' : 'k';
+		} else if (piece instanceof Rook) {
+			out = piece.isWhite() ? 'R' : 'r';
+		} else if (piece instanceof Knight) {
+			out = piece.isWhite() ? 'N' : 'n';
+		} else if (piece instanceof Bishop) {
+			out = piece.isWhite() ? 'B' : 'b';
+		} else if (piece instanceof Queen) {
+			out = piece.isWhite() ? 'Q' : 'q';
+		} else if (piece instanceof Pawn) {
+			out = piece.isWhite() ? 'P' : 'p';
+		} else {
+			out = ' ';
+		}
+
+		return out;
 	}
 
 	getPieceFromLetter(letter: string): Piece {

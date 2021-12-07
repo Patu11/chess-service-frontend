@@ -27,7 +27,7 @@ export class SquareComponent implements OnInit {
 
 	onPieceClick() {
 		// console.log(this.spot?.getPiece());
-		console.log("X: " + this.spot!.getX() + " Y: " + this.spot!.getY() + " NOTATION: " + this.spot?.getNotation());
+		// console.log("X: " + this.spot!.getX() + " Y: " + this.spot!.getY() + " NOTATION: " + this.spot?.getNotation());
 		this.clickedSpot.emit(this.spot);
 	}
 

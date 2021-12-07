@@ -20,11 +20,13 @@ export class WebsocketService {
 	private subscribed: boolean = false;
 	connectionStatus = new BehaviorSubject<boolean>(false);
 	roomConnectionStatus = new BehaviorSubject<boolean>(false);
-	private gameState: GameState = new GameState(new Game(new Player(true), new Player(false)));
+	private gameState: GameState;
 	// gameStateStatus: BehaviorSubject<GameState> = new BehaviorSubject<GameState>(this.gameState);
-	gameStateStatus: BehaviorSubject<string> = new BehaviorSubject<string>('');
+	gameStateStatus: BehaviorSubject<GameState>;
 
 	constructor() {
+		this.gameState = new GameState();
+		this.gameStateStatus = new BehaviorSubject<GameState>(this.gameState);
 		const socket = new SockJS(this.websocketUrl);
 		this.stompClient = Stomp.over(socket);
 		this.stompClient.debug = () => {
@@ -48,13 +50,13 @@ export class WebsocketService {
 		return this.roomConnectionStatus.asObservable();
 	}
 
-	sendGameState(data: any, roomCode: string) {
-		this.stompClient.send('/chess/send/' + roomCode, {}, JSON.stringify(data))
-	}
-
-	// sendGameState(gameState: GameState, roomCode: string) {
-	// 	this.stompClient.send('/chess/send/' + roomCode, {}, JSON.stringify(gameState))
+	// sendGameState(data: any, roomCode: string) {
+	// 	this.stompClient.send('/chess/send/' + roomCode, {}, JSON.stringify(data))
 	// }
+
+	sendGameState(gameState: GameState, roomCode: string) {
+		this.stompClient.send('/chess/send/' + roomCode, {}, JSON.stringify(gameState))
+	}
 
 	connectToGame(roomCode: string) {
 		if (!this.subscribed) {
@@ -63,7 +65,8 @@ export class WebsocketService {
 				this.roomConnectionStatus.next(this.subscribed);
 				// this.gameState = JSON.parse(JSON.stringify(response.body));
 				// this.gameStateStatus.next(this.gameState);
-				this.gameStateStatus.next(response.body);
+				this.gameState = JSON.parse(response.body);
+				this.gameStateStatus.next(this.gameState);
 			});
 		}
 	}
