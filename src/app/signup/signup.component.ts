@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit {
 
 	onSignup() {
 		if (!this.checkIfEmptyFields()) {
-			let user = new User(this.email, this.username, this.password, [], [], new Set<Role>([new Role('USER')]));
+			let user = new User(this.email, this.username, this.password, [], [], new Set<Role>([new Role('USER')]), []);
 			this.userService.createUser(user).subscribe(
 				(response) => {
 					this.route.navigate(['/login']);

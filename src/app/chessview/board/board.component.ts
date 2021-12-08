@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Spot} from "../../model/chess/Spot";
 import {Game} from "../../model/chess/Game";
 import {Player} from "../../model/chess/Player";
@@ -6,6 +6,9 @@ import {Empty} from "../../model/chess/figures/Empty";
 import {Pawn} from "../../model/chess/figures/Pawn";
 import {WebsocketService} from "../../services/websocket.service";
 import {GameState} from "../../model/GameState";
+import {DataService} from "../../services/data.service";
+import {Board} from "../../model/chess/Board";
+import {Move} from "../../model/chess/Move";
 
 @Component({
 	selector: 'app-board',
@@ -13,33 +16,41 @@ import {GameState} from "../../model/GameState";
 	styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-	currentClicked?: Spot;
-	state?: GameState;
-	game: Game;
-	whiteSide: boolean = true;
+	// currentClicked?: Spot;
+	// state?: GameState;
+	// game: Game;
+	// @Input()
+	// board?: Board;
+	// whiteSide: boolean = true;
+	// username: string = '';
 
-	constructor(private websocketService: WebsocketService) {
-		this.game = new Game(new Player(true), new Player(false));
-		this.websocketService.isConnected().subscribe((value) => {
-			if (value) {
-				this.websocketService.connectToGame('asd123');
-				this.websocketService.getGameState('asd123').subscribe(
-					state => {
-						if (state) {
-							if (state.boardState) {
-								this.game.getBoard().fromString(state.boardState);
-							}
-							// if (state.boardState) {
-							// 	console.log(state.boardState);
-							// 	this.game.getBoard().fromString(state.boardState);
-							// }
-							// const parsed: string[][] = JSON.parse(state)
-							// this.game.getBoard().fromString(parsed);
-						}
-					}
-				);
-			}
-		});
+	currentClicked?: Spot;
+
+	@Output()
+	move = new EventEmitter<Move>();
+
+	@Input()
+	board?: Board;
+
+	@Input()
+	player?: Player;
+
+	constructor() {
+		// this.game = new Game(new Player('chrome', true), new Player('firefox', false));
+		// this.websocketService.isConnected().subscribe((value) => {
+		// 	if (value) {
+		// 		this.websocketService.connectToGame('asd123');
+		// 		this.websocketService.getGameState('asd123').subscribe(
+		// 			state => {
+		// 				if (state) {
+		// 					if (state.boardState) {
+		// 						this.game.getBoard().fromString(state.boardState);
+		// 					}
+		// 				}
+		// 			}
+		// 		);
+		// 	}
+		// });
 	}
 
 	//todo handle clicking at empty pieces
@@ -48,21 +59,18 @@ export class BoardComponent implements OnInit {
 			this.currentClicked = spot;
 		} else {
 			if (spot != this.currentClicked) {
-				if (this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)) {
+				if (this.currentClicked?.getPiece().canMove(this.board!, this.currentClicked!, spot)) {
 					let sourceX = this.currentClicked?.getX();
 					let sourceY = this.currentClicked?.getY();
 					let targetX = spot.getX();
 					let targetY = spot.getY();
 
+					let source: Spot = this.board!.getSpot(sourceX!, sourceY!);
+					let target: Spot = this.board!.getSpot(targetX!, targetY!);
 
-					let source: Spot = this.game.getBoard().getSpot(sourceX!, sourceY!);
-					let target: Spot = this.game.getBoard().getSpot(targetX!, targetY!);
-					this.game.test(source, target);
+					let m: Move = new Move(this.player!, source, target, true);
+					this.move.emit(m);
 
-					const board: string[][] = this.game.getBoard().toString()
-					let gs: GameState = new GameState();
-					gs.setBoardState(board);
-					this.websocketService.sendGameState(gs, 'asd123');
 				}
 				this.currentClicked = undefined;
 			}
@@ -74,45 +82,39 @@ export class BoardComponent implements OnInit {
 	// 	if (this.currentClicked == undefined && !(spot.getPiece() instanceof Empty)) {
 	// 		this.currentClicked = spot;
 	// 	} else {
-	// 		if (spot != this.currentClicked/* && this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)*/) {
-	// 			let p = this.currentClicked!.getPiece();
-	// 			// console.log(p.canMove(this.game.getBoard(), this.currentClicked!, spot));
-	// 			// if (p instanceof King) {
-	// 			// 	console.log("Castle: " + p.canCastle(this.game.getBoard()));
-	// 			// }
+	// 		if (spot != this.currentClicked) {
+	// 			if (this.currentClicked?.getPiece().canMove(this.game.getBoard(), this.currentClicked!, spot)) {
+	// 				let sourceX = this.currentClicked?.getX();
+	// 				let sourceY = this.currentClicked?.getY();
+	// 				let targetX = spot.getX();
+	// 				let targetY = spot.getY();
 	//
-	// 			// if (this.reachedPromotion(this.currentClicked!, spot, this.currentClicked!.getPiece().isWhite())) {
-	// 			// 	console.log("Reached promotion");
-	// 			// 	spot = new Spot(spot.getX(), spot.getY(), new Queen(this.currentClicked!.getPiece().isWhite()))
-	// 			// }
+	// 				let source: Spot = this.game.getBoard().getSpot(sourceX!, sourceY!);
+	// 				let target: Spot = this.game.getBoard().getSpot(targetX!, targetY!);
 	//
-	// 			this.game.test(this.currentClicked!, spot);
-	// 			this.websocketService.sendGameState(new GameState(this.game), 'asd123');
-	// 			if (p instanceof King) {
-	// 				console.log("Castle: " + p.canCastle(this.game.getBoard()));
+	//
+	// 				// this.game.test(source, target);
+	//
+	// 				let gs: GameState = new GameState();
+	// 				gs.setBoardState(this.game.getBoard().toString());
+	// 				console.log(this.game.getCurrentTurn());
+	// 				this.websocketService.sendGameState(gs, 'asd123');
 	// 			}
 	// 			this.currentClicked = undefined;
 	// 		}
 	// 	}
 	// }
 
-	reachedPromotion(start: Spot, end: Spot, white: boolean): boolean {
-		let out: boolean = false;
-		if (start.getPiece() instanceof Pawn) {
-			if (white && end.getY() == 0) {
-				out = true;
-			} else if (!white && end.getY() == 7) {
-				out = true;
-			}
-		}
-		return out;
-	}
-
-	changeSide() {
-		this.whiteSide = !this.whiteSide;
-	}
+	// changeSide() {
+	// 	this.whiteSide = !this.whiteSide;
+	// }
 
 	ngOnInit(): void {
+		// this.dataService.currentMessage.subscribe(
+		// 	data => {
+		// 		this.username = data.username;
+		// 	}
+		// );
 	}
 
 }

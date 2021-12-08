@@ -24,6 +24,7 @@ import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HomePageComponent} from './home-page/home-page.component';
 import {NavbarComponent} from './navbar/navbar.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
 	declarations: [
@@ -42,7 +43,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 		UserListComponent,
 		FriendInvitesComponent,
 		HomePageComponent,
-		NavbarComponent
+		NavbarComponent,
+  GameComponent
 	],
 	imports: [
 		BrowserModule,

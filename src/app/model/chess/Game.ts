@@ -5,6 +5,8 @@ import {Move} from "./Move";
 import {Spot} from "./Spot";
 import {Piece} from "./figures/Piece";
 import {Empty} from "./figures/Empty";
+import {Pawn} from "./figures/Pawn";
+import {Queen} from "./figures/Queen";
 
 export class Game {
 	private _players: Player[] = [];
@@ -40,12 +42,20 @@ export class Game {
 		return this._board;
 	}
 
+	public getPlayers(): Player[] {
+		return this._players;
+	}
+
 	// public playerMove(player: Player, startX: number, startY: number, endX: number, endY: number): boolean {
 	// 	let startBox: Spot = this._board.getSpot(startX, startY);
 	// 	let endBox: Spot = this._board.getSpot(endX, endY);
 	// 	let move: Move = new Move(player, startBox, endBox, player.isWhiteSide());
 	// 	return this.makeMove(move, player);
 	// }
+
+	public getCurrentTurn(): Player {
+		return this._currentTurn;
+	}
 
 	public playerMove(player: Player, start: Spot, end: Spot): boolean {
 		let startBox: Spot = this._board.getSpot(start.getX(), start.getY());
@@ -54,7 +64,14 @@ export class Game {
 		return this.makeMove(move, player);
 	}
 
-	public test(start: Spot, end: Spot) {
+	public test(player: Player, start: Spot, end: Spot) {
+		if (end.getY() == 7 && start.getPiece() instanceof Pawn && !start.getPiece().isWhite()) {
+			start.setPiece(new Queen(false));
+		}
+		if (end.getY() == 0 && start.getPiece() instanceof Pawn && start.getPiece().isWhite()) {
+			start.setPiece(new Queen(true));
+		}
+
 		let newStart = new Spot(start.getX(), start.getY(), new Empty(false));
 		let newEnd = new Spot(end.getX(), end.getY(), start.getPiece());
 
@@ -62,6 +79,8 @@ export class Game {
 
 		this.getBoard().getSpots()[start.getX()][start.getY()] = newStart;
 		this.getBoard().getSpots()[end.getX()][end.getY()] = newEnd;
+		this._currentTurn = new Player(player.getUsername(), this._currentTurn != this._players[0]);
+		console.log(this._currentTurn.getUsername());
 	}
 
 	public makeMove(move: Move, player: Player): boolean {

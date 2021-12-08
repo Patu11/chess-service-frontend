@@ -6,15 +6,17 @@ import {Pawn} from "./figures/Pawn";
 import {Queen} from "./figures/Queen";
 import {King} from "./figures/King";
 import {Empty} from "./figures/Empty";
-import {isNumeric} from "rxjs/internal-compatibility";
 import {Piece} from "./figures/Piece";
-import {Move} from "./Move";
 
 export class Board {
 	private _spots: Spot[][];
 
 	constructor() {
 		this._spots = this.createBoard();
+	}
+
+	public newBoard() {
+		this.setSpots(this.createBoard());
 	}
 
 	public getKing(white: boolean): King {
@@ -29,6 +31,21 @@ export class Board {
 		return out;
 	}
 
+	public fromFlatString(board: string) {
+		let cols: string[] = board.split(':');
+		let spots: Spot[][] = [];
+		for (let i = 0; i < 8; i++) {
+			spots[i] = [];
+			let line = cols[i];
+			for (let j = 0; j < 8; j++) {
+				let letter: string = line.charAt(j);
+				let p: Piece = this.getPieceFromLetter(letter);
+				spots[i][j] = new Spot(i, j, p);
+			}
+		}
+		this._spots = spots;
+	}
+
 	public fromString(board: string[][]) {
 		let spots: Spot[][] = [];
 		for (let i = 0; i < 8; i++) {
@@ -39,6 +56,18 @@ export class Board {
 			}
 		}
 		this._spots = spots;
+	}
+
+	public toFlatString(): string {
+		let out: string = '';
+		for (let i = 0; i < 8; i++) {
+			for (let j = 0; j < 8; j++) {
+				out += this.getLetterFromPiece(this._spots[i][j].getPiece());
+			}
+			out += ':';
+		}
+		out = out.endsWith(":") ? out.substring(0, out.length - 1) : out;
+		return out;
 	}
 
 	public toString(): string[][] {
@@ -69,7 +98,7 @@ export class Board {
 		} else if (piece instanceof Pawn) {
 			out = piece.isWhite() ? 'P' : 'p';
 		} else {
-			out = ' ';
+			out = '*';
 		}
 
 		return out;

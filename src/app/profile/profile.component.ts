@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
 	owner: boolean = false;
 
 	constructor(private profileService: ProfileService, private route: ActivatedRoute) {
-		this.profile = new Profile(-1, new User('', '', '', [], [], new Set()), []);
+		this.profile = new Profile(-1, new User('', '', '', [], [], new Set(), []), []);
 	}
 
 

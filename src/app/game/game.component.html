@@ -1,0 +1,18 @@
+<div>
+	<div *ngIf="!gameModel.ended&&!gameError">
+		<div class="text-center">
+			<app-board (move)="makeMove($event)" [player]="player" [board]="game.getBoard()"></app-board>
+		</div>
+		<div>
+			<p>Current turn for: {{gameState.currentTurn}}</p>
+			<button (click)="onNewGame()" class="btn btn-primary">New game</button>
+		</div>
+	</div>
+	<div *ngIf="gameModel.ended||gameError" class="text-center m-5">
+		<h1 class="display-1">No ongoing game, to play invite a friend in your <a
+				style="text-decoration: none !important;"
+				[routerLink]="['/profile',username]"> <span
+				class="fw-bold">profile</span></a>.</h1>
+	</div>
+</div>
+

@@ -12,7 +12,7 @@ import {UserService} from "../services/user.service";
 export class ProfileCardComponent implements OnInit {
 
 	@Input()
-	user: User = new User('', '', '', [], [], new Set());
+	user: User = new User('', '', '', [], [], new Set(), []);
 	public modalRef?: BsModalRef;
 	addFriendButtonText: string = "Add friend";
 	alreadySent: boolean = false;
@@ -98,7 +98,7 @@ export class ProfileCardComponent implements OnInit {
 
 				if (username && this.user.username) {
 					// this.owner = username === this.user.username;
-					this.friendService.checkFriendShip(username, this.user.username).subscribe(
+					this.friendService.checkFriendship(username, this.user.username).subscribe(
 						(response: any) => {
 							this.alreadySent = response['friendshipExists'];
 							this.addFriendButtonText = this.alreadySent ? 'Request sent' : 'Add friend';

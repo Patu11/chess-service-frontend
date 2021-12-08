@@ -1,22 +1,23 @@
 <div style="margin-top: 5px;">
-	<div *ngIf="whiteSide;else blackSide">
-		<div class="container">
-			<div class="squares" *ngFor="let x of game.getBoard().getSpots()">
-				<div *ngFor="let spot of x">
-					<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>
-				</div>
+	<!--	<div *ngIf="whiteSide;else blackSide">-->
+	<div class="container">
+		<!--			<div class="squares" *ngFor="let x of game.getBoard().getSpots()">-->
+		<div class="squares" *ngFor="let x of board!.getSpots()">
+			<div *ngFor="let spot of x">
+				<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>
 			</div>
 		</div>
 	</div>
-
-	<ng-template #blackSide>
-		<div class="container">
-			<div class="squares" *ngFor="let x of game.getBoard().getSpots()">
-				<div *ngFor="let spot of x">
-					<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>
-				</div>
-			</div>
-		</div>
-	</ng-template>
+	<!--	</div>-->
 </div>
+
+<!--<ng-template #blackSide>-->
+<!--	<div class="container">-->
+<!--		<div class="squares" *ngFor="let x of game.getBoard().getSpots()">-->
+<!--			<div *ngFor="let spot of x">-->
+<!--				<app-square (clickedSpot)="handleSpotClicked($event)" [spot]="spot"></app-square>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</ng-template>-->
 <!--<button (click)="changeSide()">Change</button>-->
