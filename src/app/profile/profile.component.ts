@@ -4,6 +4,9 @@ import {ProfileService} from "../services/profile.service";
 import {Profile} from "../model/Profile";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {GameService} from "../services/game.service";
+import {GameModel} from "../model/GameModel";
+import {host} from "@angular-devkit/build-angular/src/test-utils";
 
 @Component({
 	selector: 'app-profile',
@@ -18,8 +21,11 @@ export class ProfileComponent implements OnInit {
 	profile: Profile | undefined;
 	usernameEmpty: boolean = false;
 	owner: boolean = false;
+	games: GameModel[] = [];
+	codes: string[] = [];
+	numberOfGames: number = 0;
 
-	constructor(private profileService: ProfileService, private route: ActivatedRoute) {
+	constructor(private profileService: ProfileService, private route: ActivatedRoute, private gameService: GameService) {
 		this.profile = new Profile(-1, new User('', '', '', [], [], new Set(), []), []);
 	}
 
@@ -41,6 +47,13 @@ export class ProfileComponent implements OnInit {
 						this.profile = response;
 						let username = sessionStorage.getItem('USER_USERNAME');
 						this.owner = username === this.profile.user.username;
+						this.gameService.getAllGames().subscribe(
+							response => {
+								this.games = response as GameModel[];
+								this.codes = this.games.map(g => g.code);
+								this.numberOfGames = this.games.filter(g => (g.host === this.link || g.player === this.link) && g.ended).length;
+							}
+						);
 					},
 					(error) => {
 						console.log(error);

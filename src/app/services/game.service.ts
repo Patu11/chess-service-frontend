@@ -16,12 +16,44 @@ export class GameService {
 		return this.http.get<GameModel>(this.gameUrl + '/' + name + '/' + name);
 	}
 
-	updateGameState(code: string, state: string) {
-		return this.http.put(this.gameUrl + '/status/' + code, state);
+	createGame(gameModel: GameModel) {
+		const body = {
+			code: gameModel.code,
+			host: gameModel.host,
+			player: gameModel.player,
+			state: gameModel.state,
+			winner: gameModel.winner,
+			currentTurn: gameModel.currentTurn,
+			started: gameModel.started,
+			accepted: gameModel.accepted,
+			ended: gameModel.ended
+		};
+
+		return this.http.post(this.gameUrl, body);
 	}
 
-	updateGameTurn(code: string, username: string) {
-		return this.http.put(this.gameUrl + '/turn/' + code, username);
+	getAllGames() {
+		return this.http.get(this.gameUrl + '/all');
+	}
+
+	acceptGameInvite(code: string) {
+		return this.http.put(this.gameUrl + "/" + code, {});
+	}
+
+	declineGameInvite(code: string) {
+		return this.http.delete(this.gameUrl + '/delete' + code);
+	}
+
+	getAllCodes() {
+		return this.http.get(this.gameUrl + '/codes');
+	}
+
+	updateWinner(code: string, winner: string) {
+		const body = {
+			winner: winner
+		};
+
+		return this.http.put(this.gameUrl + '/winner/' + code, body);
 	}
 
 	updateGame(code: string, currentTurn: string, state: string) {

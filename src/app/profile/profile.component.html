@@ -2,10 +2,12 @@
 	<div class="container" *ngIf="!usernameEmpty">
 		<div class="row">
 			<div class="col-sm-4" *ngIf="owner" style="float:left;">
-				<app-friend-invites [user]="profile!.user"></app-friend-invites>
+				<!--				<app-friend-invites [user]="profile!.user"></app-friend-invites>-->
+				<app-invites [games]="games" [user]="profile!.user"></app-invites>
 			</div>
 			<div class="col-sm-4">
-				<app-profile-card [owner]="owner" [user]="profile!.user"></app-profile-card>
+				<app-profile-card [numberOfGames]="numberOfGames" [owner]="owner"
+								  [user]="profile!.user"></app-profile-card>
 				<app-comment-list [owner]="owner" profileId="{{profile!.profileId}}"
 								  [comments]="profile!.comments"></app-comment-list>
 			</div>
@@ -14,7 +16,7 @@
 			<!--								  [comments]="profile!.comments"></app-comment-list>-->
 			<!--			</div>-->
 			<div class="col-sm-4">
-				<app-friend-list [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>
+				<app-friend-list [codes]="codes" [owner]="owner" [friends]="profile!.user.friends"></app-friend-list>
 			</div>
 		</div>
 	</div>

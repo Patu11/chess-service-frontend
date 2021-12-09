@@ -25,6 +25,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HomePageComponent} from './home-page/home-page.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import { GameComponent } from './game/game.component';
+import { InvitesComponent } from './invites/invites.component';
 
 @NgModule({
 	declarations: [
@@ -44,7 +45,8 @@ import { GameComponent } from './game/game.component';
 		FriendInvitesComponent,
 		HomePageComponent,
 		NavbarComponent,
-  GameComponent
+  GameComponent,
+  InvitesComponent
 	],
 	imports: [
 		BrowserModule,

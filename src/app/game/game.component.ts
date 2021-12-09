@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {Game} from "../model/chess/Game";
 import {Player} from "../model/chess/Player";
 import {WebsocketService} from "../services/websocket.service";
@@ -7,6 +7,8 @@ import {GameService} from "../services/game.service";
 import {GameState} from "../model/GameState";
 import {Move} from "../model/chess/Move";
 import {GameModel} from "../model/GameModel";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-game',
@@ -14,6 +16,10 @@ import {GameModel} from "../model/GameModel";
 	styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+	public modalRef?: BsModalRef;
+
+	@ViewChild('winModal')
+	modal?: TemplateRef<any>;
 
 	game: Game = new Game(new Player('empty1', true), new Player('empty2', false));
 	gameModel: GameModel = new GameModel('', 'empty1', 'empty2', this.game.getBoard().toFlatString(), '', '', false, false, false);
@@ -22,8 +28,9 @@ export class GameComponent implements OnInit {
 	gameError: boolean = false;
 	gameState: GameState = new GameState();
 	currentTurn: string = '';
+	winner: string = '';
 
-	constructor(private websocketService: WebsocketService, private dataService: DataService, private gameService: GameService) {
+	constructor(private websocketService: WebsocketService, private dataService: DataService, private gameService: GameService, private modalService: BsModalService, private route: Router) {
 	}
 
 	onNewGame() {
@@ -34,6 +41,38 @@ export class GameComponent implements OnInit {
 		this.gameState = gs;
 		this.gameService.updateGame(this.gameModel.code, this.gameModel.host, this.game.getBoard().toFlatString()).subscribe();
 		this.websocketService.sendGameState(gs, this.gameModel.code);
+	}
+
+	openGiveUpModal(template: TemplateRef<any>) {
+		this.modalRef = this.modalService.show(template);
+	}
+
+	handleModalYes() {
+		let players = this.game.getPlayers();
+		let winner: string = players[0].getUsername() === this.username ? players[1].getUsername() : players[0].getUsername();
+		this.gameService.updateWinner(this.gameModel.code, winner).subscribe();
+
+		let gs: GameState = new GameState();
+		gs.setWinner(winner);
+
+		this.websocketService.sendGameState(gs, this.gameModel.code);
+		this.handleModalClose();
+		this.route.navigate(['/home']);
+	}
+
+	handleModalClose() {
+		this.modalService.hide();
+	}
+
+	showWinnerModal(winner: string) {
+		if (winner === this.username) {
+			this.modalRef = this.modalService.show(this.modal!);
+			this.modalRef.onHide?.subscribe(
+				() => {
+					this.route.navigate(['/home']);
+				}
+			);
+		}
 	}
 
 	makeMove(move: Move) {
@@ -60,43 +99,51 @@ export class GameComponent implements OnInit {
 			state => {
 				this.username = state.username;
 				//getting game that is already started
-				this.gameService.getGameByHostOrUser(this.username).subscribe(
-					response => {
-						this.gameModel = response;
-						let p1 = new Player(response.host, true);
-						let p2 = new Player(response.user, false);
-						this.currentTurn = response.currentTurn;
-						this.game = new Game(p1, p2);
-						this.game.getBoard().fromFlatString(response.state);
-						this.game.setCurrentPlayer(p1.getUsername() === response.currentTurn ? p1 : p2);
-						this.player = this.game.getPlayers().find(p => p.getUsername() === this.username);
+				if (this.username) {
+					this.gameService.getGameByHostOrUser(this.username).subscribe(
+						response => {
+							this.gameModel = response;
+							let p1 = new Player(response.host, true);
+							let p2 = new Player(response.player, false);
+							this.currentTurn = response.currentTurn;
+							this.winner = response.winner;
+							this.game = new Game(p1, p2);
+							this.game.getBoard().fromFlatString(response.state);
+							this.game.setCurrentPlayer(p1.getUsername() === response.currentTurn ? p1 : p2);
+							this.player = this.game.getPlayers().find(p => p.getUsername() === this.username);
 
-						//connecting to websocket
-						this.websocketService.isConnected().subscribe((value) => {
-							if (value) {
-								//subscribing to websocket topic (game)
-								this.websocketService.connectToGame(response.code);
-								//getting state of game to refresh board
-								this.websocketService.getGameState(response.code).subscribe(
-									state => {
-										if (state) {
-											this.gameState = state;
-											if (state.currentTurn) {
-												this.currentTurn = state.currentTurn;
-											}
-											if (state.boardState) {
-												this.game.getBoard().fromString(state.boardState);
+							//connecting to websocket
+							this.websocketService.isConnected().subscribe((value) => {
+								if (value) {
+									//subscribing to websocket topic (game)
+									this.websocketService.connectToGame(response.code);
+									//getting state of game to refresh board
+									this.websocketService.getGameState(response.code).subscribe(
+										state => {
+											if (state) {
+												this.gameState = state;
+												if (state.winner) {
+													this.winner = state.winner;
+													this.showWinnerModal(state.winner);
+												}
+
+												if (state.currentTurn) {
+													this.currentTurn = state.currentTurn;
+												}
+												if (state.boardState) {
+													this.game.getBoard().fromString(state.boardState);
+												}
 											}
 										}
-									}
-								);
-							}
-						});
-					},
-					error => {
-						this.gameError = true
-					}
-				);
+									);
+								}
+							});
+						},
+						error => {
+							this.gameError = true
+						}
+					);
+				}
 			}
 		);
 	}

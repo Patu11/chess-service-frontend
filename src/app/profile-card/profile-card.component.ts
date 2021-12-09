@@ -17,6 +17,9 @@ export class ProfileCardComponent implements OnInit {
 	addFriendButtonText: string = "Add friend";
 	alreadySent: boolean = false;
 
+	@Input()
+	numberOfGames: number = 0;
+
 	newPassword: string = '';
 	confirmPassword: string = '';
 	showPasswordStatus: boolean = false;

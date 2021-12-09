@@ -1,0 +1,45 @@
+<div style="margin:5px;">
+	<ul class="list-group">
+		<li class="list-group-item active">Friend invites</li>
+		<li *ngFor="let friend of user.friends" class="list-group-item">
+			<div *ngIf="!friend.status">
+				<div style="display: inline-block;float:left;">Friend invite from
+					<a [routerLink]="['/profile',friend.user2]"
+					   style="text-decoration: none !important;font-size: 20px;"
+					   class="link-primary">{{friend.user2}}</a>
+				</div>
+				<div>
+					<button (click)="onFriendDecline(friend)" style="display: inline-block; float: right;"
+							class="btn btn-danger btn-sm">Decline
+					</button>
+				</div>
+				<div style="margin-right: 70px;">
+					<button (click)="onFriendAccept(friend)" style="display: inline-block; float: right;"
+							class="btn btn-success btn-sm">Accept
+					</button>
+				</div>
+			</div>
+		</li>
+		<li class="list-group-item active">Game invites</li>
+		<li *ngFor="let game of games" class="list-group-item">
+			<div *ngIf="!game.accepted">
+				<div style="display: inline-block;float:left;">
+					Game invite from
+					<a [routerLink]="['/profile',game.host]"
+					   style="text-decoration: none !important;font-size: 20px;"
+					   class="link-primary">{{game.host}}</a>
+				</div>
+				<div>
+					<button (click)="onGameDecline(game)" style="display: inline-block; float: right;"
+							class="btn btn-danger btn-sm">Decline
+					</button>
+				</div>
+				<div style="margin-right: 70px;">
+					<button (click)="onGameAccept(game)" style="display: inline-block; float: right;"
+							class="btn btn-success btn-sm">Accept
+					</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>

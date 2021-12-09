@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Friend} from "../model/Friend";
 import {FriendService} from "../services/friend.service";
+import {GameService} from "../services/game.service";
+import {GameModel} from "../model/GameModel";
 
 @Component({
 	selector: 'app-friend-list',
@@ -15,7 +17,28 @@ export class FriendListComponent implements OnInit {
 	@Input()
 	owner: boolean = false;
 
-	constructor(private friendService: FriendService) {
+	@Input()
+	codes: string[] = [];
+
+	constructor(private friendService: FriendService, private gameService: GameService) {
+	}
+
+	onInviteFriend(friend: Friend) {
+		let code = this.generateCode();
+		while (this.codes.some(cod => cod === code)) {
+			code = this.generateCode();
+		}
+		let host = sessionStorage.getItem('USER_USERNAME');
+		const state: string = 'rp****PR:np****PN:bp****PB:qp****PQ:kp****PK:bp****PB:np****PN:rp****PR';
+		let model: GameModel = new GameModel(code, host!, friend.user2, state, '', host!, false, false, false);
+		this.gameService.createGame(model).subscribe(
+			response => {
+				console.log(response);
+			},
+			error => {
+				console.log(error);
+			}
+		);
 	}
 
 	onRemoveFriend(friend: Friend) {
@@ -30,6 +53,21 @@ export class FriendListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	}
+
+	generateCode(): string {
+		const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		const LOWER = 'abcdefghijklmnopqrstuvwxyz';
+		const NUMBERS = '0123456789';
+		const ALPHA = UPPER + LOWER + NUMBERS;
+		const LENGTH = 6;
+
+		let code = '';
+
+		for (let i = 0; i < LENGTH; i++) {
+			code += ALPHA.charAt(Math.floor(Math.random() * ALPHA.length));
+		}
+		return code;
 	}
 
 }

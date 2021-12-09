@@ -23,7 +23,7 @@ export class FriendService {
 		const body = {
 			user1: user1,
 			user2: user2,
-			status: false
+			status: true
 		}
 
 		return this.http.put(this.friendUrl + '/accept', body);

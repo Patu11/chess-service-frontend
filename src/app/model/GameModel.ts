@@ -1,7 +1,7 @@
 export class GameModel {
 	private _code: string;
 	private _host: string;
-	private _user: string;
+	private _player: string;
 	private _state: string;
 	private _winner: string;
 	private _currentTurn: string;
@@ -10,10 +10,10 @@ export class GameModel {
 	private _ended: boolean;
 
 
-	constructor(code: string, host: string, user: string, state: string, winner: string, currentTurn: string, started: boolean, accepted: boolean, ended: boolean) {
+	constructor(code: string, host: string, player: string, state: string, winner: string, currentTurn: string, started: boolean, accepted: boolean, ended: boolean) {
 		this._code = code;
 		this._host = host;
-		this._user = user;
+		this._player = player;
 		this._state = state;
 		this._winner = winner;
 		this._currentTurn = currentTurn;
@@ -38,12 +38,12 @@ export class GameModel {
 		this._host = value;
 	}
 
-	get user(): string {
-		return this._user;
+	get player(): string {
+		return this._player;
 	}
 
-	set user(value: string) {
-		this._user = value;
+	set player(value: string) {
+		this._player = value;
 	}
 
 	get state(): string {
