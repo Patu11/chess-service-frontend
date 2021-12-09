@@ -23,4 +23,12 @@ export class GameService {
 	updateGameTurn(code: string, username: string) {
 		return this.http.put(this.gameUrl + '/turn/' + code, username);
 	}
+
+	updateGame(code: string, currentTurn: string, state: string) {
+		const body = {
+			currentTurn: currentTurn,
+			state: state
+		};
+		return this.http.put(this.gameUrl + '/update/' + code, body);
+	}
 }

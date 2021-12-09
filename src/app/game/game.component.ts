@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
 	username?: string;
 	gameError: boolean = false;
 	gameState: GameState = new GameState();
+	currentTurn: string = '';
 
 	constructor(private websocketService: WebsocketService, private dataService: DataService, private gameService: GameService) {
 	}
@@ -29,21 +30,28 @@ export class GameComponent implements OnInit {
 		this.game.getBoard().newBoard();
 		let gs: GameState = new GameState();
 		gs.setBoardState(this.game.getBoard().toString());
-		this.gameService.updateGameState(this.gameModel.code, this.game.getBoard().toFlatString()).subscribe(
-			response => {
-
-			}
-		);
+		gs.setCurrentTurn(this.gameModel.host);
+		this.gameState = gs;
+		this.gameService.updateGame(this.gameModel.code, this.gameModel.host, this.game.getBoard().toFlatString()).subscribe();
 		this.websocketService.sendGameState(gs, this.gameModel.code);
 	}
 
 	makeMove(move: Move) {
-		this.game.test(move.getPlayer(), move.getStart(), move.getEnd());
-		let gs: GameState = new GameState();
-		gs.setBoardState(this.game.getBoard().toString());
-		gs.setCurrentTurn(this.game.getCurrentTurn().getUsername());
-		this.gameService.updateGameState(this.gameModel.code, this.game.getBoard().toFlatString()).subscribe();
-		this.websocketService.sendGameState(gs, this.gameModel.code);
+		if (this.currentTurn === this.username) {
+			this.game.test(move.getPlayer(), move.getStart(), move.getEnd());
+			let gs: GameState = new GameState();
+			gs.setBoardState(this.game.getBoard().toString());
+
+			let players: Player[] = this.game.getPlayers();
+
+			let tempCurrent: string = players[0].getUsername() === this.currentTurn ? players[1].getUsername() : players[0].getUsername();
+
+			this.game.setCurrentPlayer(players.find(p => p.getUsername() === tempCurrent)!);
+			gs.setCurrentTurn(tempCurrent);
+
+			this.gameService.updateGame(this.gameModel.code, tempCurrent, this.game.getBoard().toFlatString()).subscribe();
+			this.websocketService.sendGameState(gs, this.gameModel.code);
+		}
 	}
 
 	ngOnInit(): void {
@@ -57,8 +65,10 @@ export class GameComponent implements OnInit {
 						this.gameModel = response;
 						let p1 = new Player(response.host, true);
 						let p2 = new Player(response.user, false);
+						this.currentTurn = response.currentTurn;
 						this.game = new Game(p1, p2);
 						this.game.getBoard().fromFlatString(response.state);
+						this.game.setCurrentPlayer(p1.getUsername() === response.currentTurn ? p1 : p2);
 						this.player = this.game.getPlayers().find(p => p.getUsername() === this.username);
 
 						//connecting to websocket
@@ -71,6 +81,9 @@ export class GameComponent implements OnInit {
 									state => {
 										if (state) {
 											this.gameState = state;
+											if (state.currentTurn) {
+												this.currentTurn = state.currentTurn;
+											}
 											if (state.boardState) {
 												this.game.getBoard().fromString(state.boardState);
 											}

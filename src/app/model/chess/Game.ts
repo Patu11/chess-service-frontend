@@ -57,6 +57,10 @@ export class Game {
 		return this._currentTurn;
 	}
 
+	public setCurrentPlayer(player: Player) {
+		this._currentTurn = player;
+	}
+
 	public playerMove(player: Player, start: Spot, end: Spot): boolean {
 		let startBox: Spot = this._board.getSpot(start.getX(), start.getY());
 		let endBox: Spot = this._board.getSpot(end.getX(), end.getY());
@@ -79,8 +83,10 @@ export class Game {
 
 		this.getBoard().getSpots()[start.getX()][start.getY()] = newStart;
 		this.getBoard().getSpots()[end.getX()][end.getY()] = newEnd;
-		this._currentTurn = new Player(player.getUsername(), this._currentTurn != this._players[0]);
-		console.log(this._currentTurn.getUsername());
+
+		let p1: Player = new Player(this._players[0].getUsername(), this._players[0].isWhiteSide());
+		let p2: Player = new Player(this._players[1].getUsername(), this._players[1].isWhiteSide());
+		this._currentTurn = this._currentTurn.getUsername() === this._players[0].getUsername() ? p2 : p1;
 	}
 
 	public makeMove(move: Move, player: Player): boolean {

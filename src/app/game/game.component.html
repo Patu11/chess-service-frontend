@@ -4,7 +4,7 @@
 			<app-board (move)="makeMove($event)" [player]="player" [board]="game.getBoard()"></app-board>
 		</div>
 		<div>
-			<p>Current turn for: {{gameState.currentTurn}}</p>
+			<p>Current turn for: {{currentTurn}}</p>
 			<button (click)="onNewGame()" class="btn btn-primary">New game</button>
 		</div>
 	</div>
