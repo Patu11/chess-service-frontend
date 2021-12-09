@@ -13,7 +13,8 @@
 				<p class="fs-4">White: <span class="fw-bold">{{gameModel.host}}</span> Black: <span
 						class="fw-bold">{{gameModel.player}}</span></p>
 				<p class="fs-4">Current turn: <span class="fw-bold text-success">{{currentTurn}}</span></p>
-				<button [disabled]="winner!=''" (click)="openGiveUpModal(confirmGiveUpModal)" class="btn btn-danger">
+				<button [disabled]="winner" (click)="openGiveUpModal(confirmGiveUpModal)"
+						class="btn btn-danger">
 					Give up
 				</button>
 				<!--				<button (click)="onNewGame()" class="btn btn-primary">New game</button>-->
@@ -24,7 +25,7 @@
 		<h1 class="display-1">No ongoing game, to play invite a friend in your <a
 				style="text-decoration: none !important;"
 				[routerLink]="['/profile',username]"> <span
-				class="fw-bold">profile</span></a>.</h1>
+				class="fw-bold">profile</span></a>, or wait for the invitation to be accepted</h1>
 	</div>
 </div>
 

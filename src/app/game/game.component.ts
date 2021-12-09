@@ -56,6 +56,7 @@ export class GameComponent implements OnInit {
 		gs.setWinner(winner);
 
 		this.websocketService.sendGameState(gs, this.gameModel.code);
+		sessionStorage.setItem('USER_INGAME', 'false');
 		this.handleModalClose();
 		this.route.navigate(['/home']);
 	}

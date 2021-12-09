@@ -19,6 +19,8 @@ export class InvitesComponent implements OnInit {
 	@Input()
 	games: GameModel[] = [];
 
+	isInGame: boolean = false;
+
 	constructor(private friendService: FriendService, private gameService: GameService, private route: Router) {
 	}
 
@@ -47,6 +49,8 @@ export class InvitesComponent implements OnInit {
 	onGameAccept(game: GameModel) {
 		this.gameService.acceptGameInvite(game.code).subscribe(
 			response => {
+				sessionStorage.setItem('USER_INGAME', 'true');
+				this.isInGame = true;
 				this.route.navigate(['/game']);
 			},
 			error => {
@@ -58,6 +62,8 @@ export class InvitesComponent implements OnInit {
 	onGameDecline(game: GameModel) {
 		this.gameService.declineGameInvite(game.code).subscribe(
 			response => {
+				sessionStorage.setItem('USER_INGAME', 'false');
+				this.isInGame = false;
 				console.log(response);
 			},
 			error => {
@@ -79,6 +85,11 @@ export class InvitesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-	}
+		if (sessionStorage.getItem('USER_INGAME')) {
+			this.isInGame = sessionStorage.getItem('USER_INGAME') === 'true';
 
+		} else {
+			this.isInGame = false;
+		}
+	}
 }

@@ -13,7 +13,7 @@ export class GameService {
 	}
 
 	getGameByHostOrUser(name: string) {
-		return this.http.get<GameModel>(this.gameUrl + '/' + name + '/' + name);
+		return this.http.get<GameModel>(this.gameUrl + '/' + name);
 	}
 
 	createGame(gameModel: GameModel) {
@@ -37,11 +37,11 @@ export class GameService {
 	}
 
 	acceptGameInvite(code: string) {
-		return this.http.put(this.gameUrl + "/" + code, {});
+		return this.http.put(this.gameUrl + "/accept/" + code, {});
 	}
 
 	declineGameInvite(code: string) {
-		return this.http.delete(this.gameUrl + '/delete' + code);
+		return this.http.delete(this.gameUrl + '/delete/' + code);
 	}
 
 	getAllCodes() {

@@ -30,12 +30,14 @@
 					   class="link-primary">{{game.host}}</a>
 				</div>
 				<div>
-					<button (click)="onGameDecline(game)" style="display: inline-block; float: right;"
+					<button (click)="onGameDecline(game)"
+							style="display: inline-block; float: right;"
 							class="btn btn-danger btn-sm">Decline
 					</button>
 				</div>
 				<div style="margin-right: 70px;">
-					<button (click)="onGameAccept(game)" style="display: inline-block; float: right;"
+					<button [disabled]="isInGame" (click)="onGameAccept(game)"
+							style="display: inline-block; float: right;"
 							class="btn btn-success btn-sm">Accept
 					</button>
 				</div>
