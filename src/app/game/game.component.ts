@@ -94,6 +94,10 @@ export class GameComponent implements OnInit {
 		}
 	}
 
+	refreshPage() {
+		window.location.reload();
+	}
+
 	ngOnInit(): void {
 		//getting current login state (username etc.)
 		this.dataService.currentMessage.subscribe(

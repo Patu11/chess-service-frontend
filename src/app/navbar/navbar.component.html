@@ -13,6 +13,9 @@
 						class="btn btn-outline-light fs-5"><i
 						class="bi bi-person-circle"></i></button>
 			</div>
+			<div *ngIf="username&&role==='ADMIN'" style="margin-right: 10px;" class="float-end">
+				<button routerLink="/admin" class="btn btn-outline-light fs-5">Admin panel</button>
+			</div>
 			<div *ngIf="username" style="margin-right: 10px; margin-left: 10px;" class="float-end">
 				<button (click)="onLogOut()" routerLink="/home" class="btn btn-outline-light fs-5">Log Out</button>
 			</div>
@@ -21,6 +24,14 @@
 			</div>
 			<div *ngIf="!username" style="margin-right: 10px;margin-left: 10px;" class="float-end">
 				<button routerLink="/signup" class="btn btn-outline-light fs-5">Sign Up
+				</button>
+			</div>
+			<div style="margin-left: 10px;" class="float-end">
+				<button routerLink="/home" class="btn btn-outline-light fs-5">Home
+				</button>
+			</div>
+			<div *ngIf="username" style="margin-left: 10px;" class="float-end">
+				<button routerLink="/game" class="btn btn-outline-warning fs-5">Go to game
 				</button>
 			</div>
 		</div>

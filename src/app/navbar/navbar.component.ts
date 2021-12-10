@@ -11,6 +11,7 @@ import {LoginState} from "../model/LoginState";
 })
 export class NavbarComponent implements OnInit {
 	username: string = '';
+	role: string = '';
 	subscription?: Subscription;
 
 	constructor(private route: Router, private dataService: DataService) {
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
 	ngOnInit(): void {
 		this.subscription = this.dataService.currentMessage.subscribe(state => {
 			this.username = state.username
+			this.role = state.role;
 		});
 	}
 

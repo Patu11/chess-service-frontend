@@ -5,18 +5,20 @@ export class GameModel {
 	private _state: string;
 	private _winner: string;
 	private _currentTurn: string;
+	private _tournamentId?: number
 	private _started: boolean;
 	private _accepted: boolean;
 	private _ended: boolean;
 
 
-	constructor(code: string, host: string, player: string, state: string, winner: string, currentTurn: string, started: boolean, accepted: boolean, ended: boolean) {
+	constructor(code: string, host: string, player: string, state: string, winner: string, currentTurn: string, started: boolean, accepted: boolean, ended: boolean, tournamentId?: number) {
 		this._code = code;
 		this._host = host;
 		this._player = player;
 		this._state = state;
 		this._winner = winner;
 		this._currentTurn = currentTurn;
+		this._tournamentId = tournamentId;
 		this._started = started;
 		this._accepted = accepted;
 		this._ended = ended;
@@ -93,5 +95,14 @@ export class GameModel {
 
 	set currentTurn(value: string) {
 		this._currentTurn = value;
+	}
+
+
+	get tournamentId(): number {
+		return this._tournamentId!;
+	}
+
+	set tournamentId(value: number) {
+		this._tournamentId = value;
 	}
 }

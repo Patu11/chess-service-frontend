@@ -11,9 +11,13 @@
 	</div>
 	<div *ngIf="loggedIn" class="m-5 text-center">
 		<div>
-			<h1 class="display-1">You are logged</h1>
-			<h2 class="display-4">Temp message</h2>
+			<h1 class="display-1">Hello <span class="fw-bold">{{username}}</span></h1>
 		</div>
+		<div>
+			<h3 class="display-3">Join the tournament</h3>
+			<app-tournament-list></app-tournament-list>
+		</div>
+
 	</div>
 </div>
 

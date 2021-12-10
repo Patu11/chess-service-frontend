@@ -11,6 +11,7 @@ export class HomePageComponent implements OnInit {
 
 	subscription?: Subscription;
 	loggedIn: boolean = false;
+	username: string = '';
 
 	constructor(private dataService: DataService) {
 	}
@@ -18,6 +19,7 @@ export class HomePageComponent implements OnInit {
 	ngOnInit(): void {
 		this.subscription = this.dataService.currentMessage.subscribe(
 			status => {
+				this.username = status.username;
 				this.loggedIn = !!status.username;
 			}
 		);
