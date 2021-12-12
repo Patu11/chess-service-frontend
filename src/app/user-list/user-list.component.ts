@@ -26,6 +26,9 @@ export class UserListComponent implements OnInit {
 	onDelete(user: User) {
 		this.userService.deleteUserByEmail(user.email).subscribe(
 			response => {
+				this.users.forEach((item, index) => {
+					if (item.email === user.email) this.users.splice(index, 1);
+				});
 				console.log(response);
 			},
 			error => {

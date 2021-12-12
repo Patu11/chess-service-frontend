@@ -1,0 +1,35 @@
+<div class="text-center">
+	<h6 class="display-6">Create tournament</h6>
+	<div class="input-group mb-3">
+					<span class="input-group-text" id="titleinput">
+						<i class="bi bi-file-font"></i>
+					</span>
+		<input [(ngModel)]="title" type="text" class="form-control"
+			   placeholder="Title"
+			   aria-label="Title"
+			   aria-describedby="titleinput">
+	</div>
+	<p style="float:left;">Start date</p>
+	<div class="input-group mb-3">
+					<span class="input-group-text" id="startinput">
+						<i class="bi bi-calendar"></i>
+					</span>
+		<input [(ngModel)]="startDate" type="date" class="form-control" placeholder="Start Date"
+			   aria-label="End Date"
+			   aria-describedby="startinput">
+	</div>
+	<p style="float:left;">End date</p>
+	<div class="input-group mb-3">
+					<span class="input-group-text" id="endinput">
+						<i class="bi bi-calendar"></i>
+					</span>
+		<input [(ngModel)]="endDate" type="date" class="form-control" placeholder="End Date"
+			   aria-label="End Date"
+			   aria-describedby="endinput">
+	</div>
+
+	<p *ngIf="titleError" class="text-danger">Title cannot be empty</p>
+	<p *ngIf="dateError" class="text-danger">End date must be after start date</p>
+	<p *ngIf="addingSuccess" class="text-success">Successfully added</p>
+	<button (click)="onAddTournament()" class="btn btn-primary">Add tournament</button>
+</div>

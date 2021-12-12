@@ -19,7 +19,13 @@ export class GameComponent implements OnInit {
 	public modalRef?: BsModalRef;
 
 	@ViewChild('winModal')
-	modal?: TemplateRef<any>;
+	winModal?: TemplateRef<any>;
+
+	@ViewChild('confirmDrawModal')
+	drawModal?: TemplateRef<any>;
+
+	@ViewChild('drawInfoModal')
+	drawInfoModal?: TemplateRef<any>;
 
 	game: Game = new Game(new Player('empty1', true), new Player('empty2', false));
 	gameModel: GameModel = new GameModel('', 'empty1', 'empty2', this.game.getBoard().toFlatString(), '', '', false, false, false);
@@ -47,6 +53,27 @@ export class GameComponent implements OnInit {
 		this.modalRef = this.modalService.show(template);
 	}
 
+	onDraw() {
+		let gs: GameState = new GameState();
+		gs.setDraw(this.username!);
+		this.websocketService.sendGameState(gs, this.gameModel.code);
+	}
+
+	showDrawModal(draw: string) {
+		if (draw !== this.username && draw !== '') {
+			this.modalRef = this.modalService.show(this.drawModal!);
+		}
+	}
+
+	handleDrawYes() {
+		let gs: GameState = new GameState();
+		gs.setWinner('DRAW');
+		this.gameService.updateWinner(this.gameModel.code, 'DRAW').subscribe();
+		this.websocketService.sendGameState(gs, this.gameModel.code);
+		sessionStorage.setItem('USER_INGAME', 'false');
+		this.handleModalClose();
+	}
+
 	handleModalYes() {
 		let players = this.game.getPlayers();
 		let winner: string = players[0].getUsername() === this.username ? players[1].getUsername() : players[0].getUsername();
@@ -67,13 +94,25 @@ export class GameComponent implements OnInit {
 
 	showWinnerModal(winner: string) {
 		if (winner === this.username) {
-			this.modalRef = this.modalService.show(this.modal!);
+			this.modalRef = this.modalService.show(this.winModal!);
 			this.modalRef.onHide?.subscribe(
 				() => {
+					this.websocketService.sendGameState(new GameState(), this.gameModel.code);
 					this.route.navigate(['/home']);
 				}
 			);
 		}
+	}
+
+	showWinnerDrawModal() {
+		this.modalRef = this.modalService.show(this.drawInfoModal!);
+		this.modalRef.onHide?.subscribe(
+			() => {
+				this.websocketService.sendGameState(new GameState(), this.gameModel.code);
+				this.route.navigate(['/home']);
+			}
+		);
+
 	}
 
 	makeMove(move: Move) {
@@ -137,6 +176,9 @@ export class GameComponent implements OnInit {
 												}
 												if (state.boardState) {
 													this.game.getBoard().fromString(state.boardState);
+												}
+												if (state.draw && state.draw !== '' && !this.winner) {
+													this.showWinnerDrawModal();
 												}
 											}
 										}

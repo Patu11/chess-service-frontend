@@ -10,30 +10,18 @@ import {Subscription} from "rxjs";
 	styleUrls: ['./tournament-list.component.css']
 })
 export class TournamentListComponent implements OnInit {
-	subscription?: Subscription;
 	tournaments: Tournament[] = [];
-	role: string = '';
-	username: string = '';
 
-	constructor(private tournamentService: TournamentService, private dataService: DataService) {
+	constructor(private tournamentService: TournamentService) {
 	}
 
-	onJoin(tournament: Tournament) {
-		this.tournamentService.addUserToTournament(tournament.tournamentId, this.username).subscribe(
-			response => {
-				console.log(response);
-			},
-			error => {
-				console.log(error);
-			}
-		);
+	onDelete(tournamentId: number) {
+		this.tournaments.forEach((item, index) => {
+			if (item.tournamentId == tournamentId) this.tournaments.splice(index, 1);
+		});
 	}
 
 	ngOnInit(): void {
-		this.subscription = this.dataService.currentMessage.subscribe(state => {
-			this.username = state.username;
-			this.role = state.role;
-		});
 		this.tournamentService.getAllTournaments().subscribe(
 			response => {
 				this.tournaments = response;
@@ -43,5 +31,4 @@ export class TournamentListComponent implements OnInit {
 			}
 		);
 	}
-
 }

@@ -1,27 +1,12 @@
-<div style="width: 40%;">
+<div class="container w-50">
 	<div>
 		<ul class="list-group">
 			<li class="list-group-item active">Tournaments</li>
 		</ul>
 	</div>
-	<ul class="list-group list-unstyled">
+	<ul class="list-group list-unstyled scroll">
 		<li *ngFor="let tournament of tournaments" class="list-group-item">
-			<div>
-				<div style="display: inline-block;float:left;">
-					<p><span class="fs-5 fw-bold">{{tournament.title}}</span> <span
-							class="fs-6">{{tournament.startDate}}
-						- {{tournament.endDate}}</span> {{tournament.users.size}}/{{tournament.maxPlayers}}</p>
-				</div>
-				<div>
-					<button *ngIf="role==='ADMIN'" style="margin-left: 5px;"
-							class="btn btn-danger btn-sm d-inline float-end">Delete
-					</button>
-				</div>
-				<div>
-					<button (click)="onJoin(tournament)" class="btn btn-primary btn-sm d-inline float-end">Join
-					</button>
-				</div>
-			</div>
+			<app-tournament (deleteId)="onDelete($event)" [tournament]="tournament"></app-tournament>
 		</li>
 	</ul>
 </div>

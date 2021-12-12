@@ -4,16 +4,18 @@ import {GameModel} from "./GameModel";
 export class Tournament {
 	private _tournamentId: number;
 	private _title: string;
+	private _bracket: string;
 	private _maxPlayers: number;
 	private _winner: string;
 	private _startDate: string;
 	private _endDate: string;
-	private _users: Set<User>;
+	private _users: Array<User>;
 	private _games: Array<GameModel>;
 
-	constructor(tournamentId: number, title: string, maxPlayers: number, winner: string, startDate: string, endDate: string, users: Set<User>, games: Array<GameModel>) {
+	constructor(tournamentId: number, title: string, bracket: string, maxPlayers: number, winner: string, startDate: string, endDate: string, users: Array<User>, games: Array<GameModel>) {
 		this._tournamentId = tournamentId;
 		this._title = title;
+		this._bracket = bracket;
 		this._maxPlayers = maxPlayers;
 		this._winner = winner;
 		this._startDate = startDate;
@@ -70,12 +72,21 @@ export class Tournament {
 		this._endDate = value;
 	}
 
-	get users(): Set<User> {
+	get users(): Array<User> {
 		return this._users;
 	}
 
-	set users(value: Set<User>) {
+	set users(value: Array<User>) {
 		this._users = value;
+	}
+
+
+	get bracket(): string {
+		return this._bracket;
+	}
+
+	set bracket(value: string) {
+		this._bracket = value;
 	}
 
 	get games(): Array<GameModel> {

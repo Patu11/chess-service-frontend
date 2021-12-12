@@ -1,0 +1,25 @@
+<div>
+	<div style="display: inline-block;float:left;">
+		<!--		<p><span class="fs-5 fw-bold">{{tournament!.title}}</span> Players: {{tournament!.users.length}}-->
+		<!--			/ {{tournament!.maxPlayers}}</p>-->
+		<p><a [routerLink]="['/tournament',tournament!.tournamentId]"
+			  style="text-decoration: none !important;font-size: 20px;"
+			  class="link-primary fw-bold">{{tournament!.title}}</a>
+			<span style="margin-left: 20px;" class="fw-bold">Players:</span> {{currentNumberOfPlayers}}
+			/ {{tournament!.maxPlayers}} <span style="margin-left: 20px;"
+											   class="fw-bold">Start:</span> {{tournament!.startDate}}</p>
+	</div>
+
+	<div>
+		<button (click)="onDelete()" *ngIf="role==='ADMIN'" style="margin-left: 5px;"
+				class="btn btn-danger btn-sm d-inline float-end">Delete
+		</button>
+	</div>
+	<div>
+		<button [disabled]="isFull" *ngIf="!alreadyJoined" (click)="onJoin()"
+				class="btn btn-success btn-sm d-inline float-end">{{joinButtonContent}}
+		</button>
+		<button *ngIf="alreadyJoined" (click)="onLeave()" class="btn btn-danger btn-sm d-inline float-end">Leave
+		</button>
+	</div>
+</div>

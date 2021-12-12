@@ -23,8 +23,7 @@ export class UserService {
 		const body = {
 			email: user.email,
 			username: user.username,
-			password: user.password,
-			comments: []
+			password: user.password
 		};
 		return this.http.post<User>(this.userUrl + "/signup", body);
 	}

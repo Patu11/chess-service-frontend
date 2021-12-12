@@ -44,6 +44,9 @@ export class FriendListComponent implements OnInit {
 	onRemoveFriend(friend: Friend) {
 		this.friendService.deleteFriendship(friend.user1, friend.user2).subscribe(
 			response => {
+				this.friends.forEach((item, index) => {
+					if (item.user2 === friend.user2) this.friends.splice(index, 1);
+				});
 				console.log(response);
 			},
 			error => {

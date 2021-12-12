@@ -13,9 +13,13 @@
 		<div>
 			<h1 class="display-1">Hello <span class="fw-bold">{{username}}</span></h1>
 		</div>
-		<div>
-			<h3 class="display-3">Join the tournament</h3>
+		<div class="">
+			<h3 class="display-3">Join the tournament below ...</h3>
 			<app-tournament-list></app-tournament-list>
+			<h3 class="display-3">... or invite a friend to play in your <a
+					style="text-decoration: none !important;"
+					[routerLink]="['/profile',username]"> <span
+					class="fw-bold">profile</span></a>.</h3>
 		</div>
 
 	</div>

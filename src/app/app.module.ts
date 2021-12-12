@@ -28,6 +28,11 @@ import {GameComponent} from './game/game.component';
 import {InvitesComponent} from './invites/invites.component';
 import {TournamentListComponent} from './tournament-list/tournament-list.component';
 import {AdminComponent} from './admin/admin.component';
+import { TournamentComponent } from './tournament/tournament.component';
+import { CreateTournamentComponent } from './create-tournament/create-tournament.component';
+import { TournamentPageComponent } from './tournament-page/tournament-page.component';
+import { TournamentGameListComponent } from './tournament-game-list/tournament-game-list.component';
+import { TournamentGameComponent } from './tournament-game/tournament-game.component';
 
 @NgModule({
 	declarations: [
@@ -50,7 +55,12 @@ import {AdminComponent} from './admin/admin.component';
 		GameComponent,
 		InvitesComponent,
 		TournamentListComponent,
-		AdminComponent
+		AdminComponent,
+  TournamentComponent,
+  CreateTournamentComponent,
+  TournamentPageComponent,
+  TournamentGameListComponent,
+  TournamentGameComponent
 	],
 	imports: [
 		BrowserModule,
