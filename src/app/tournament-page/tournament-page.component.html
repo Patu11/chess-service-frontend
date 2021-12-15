@@ -1,32 +1,26 @@
-<!--<app-user-list [users]="tournament!.users"></app-user-list>-->
-
 <div style="padding: 10px;" class="container">
 	<div class="row justify-content-center">
 		<div class="col-4">
-			<app-tournament-game-list roundTitle="Round 1" [games]="tournament!.games"></app-tournament-game-list>
+			<app-tournament-game-list roundTitle="Round 1" [games]="firstRound"></app-tournament-game-list>
 		</div>
 		<div class="col-4">
-			<app-tournament-game-list roundTitle="Round 2" [games]="tournament!.games"></app-tournament-game-list>
+			<app-tournament-game-list roundTitle="Round 2" [games]="secondRound"></app-tournament-game-list>
 		</div>
 		<div class="col-4">
-			<app-tournament-game-list roundTitle="Round 3" [games]="tournament!.games"></app-tournament-game-list>
+			<app-tournament-game-list roundTitle="Round 3" [games]="thirdRound"></app-tournament-game-list>
 		</div>
 	</div>
 
-	<div style="margin-top: 20px;" class="text-center">
-		<h1 class="display-1">Winner:</h1>
+	<div *ngIf="tournament!.winner" style="margin-top: 20px;" class="text-center">
+		<h1 class="display-1">Winner:
+			<img src="./assets/winner.svg" width="100" height="100"
+				 class="d-inline-block align-top"
+				 alt="">
+			<a [routerLink]="['/profile',tournament!.winner]"
+			   style="text-decoration: none !important; font-weight: bold;"
+			   class="link-primary">{{tournament!.winner}}</a>
+			<img src="./assets/winner.svg" width="100" height="100"
+				 class="d-inline-block align-top"
+				 alt=""></h1>
 	</div>
 </div>
-
-<!--<div class="container">-->
-<!--	<div class="row">-->
-<!--		<div class="col-10">-->
-<!--			<app-tournament-game-list roundTitle="Round 1" [games]="tournament!.games"></app-tournament-game-list>-->
-<!--		</div>-->
-<!--		<div class="col-10">-->
-<!--			<app-tournament-game-list roundTitle="Round 2" [games]="tournament!.games"></app-tournament-game-list>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
-
-

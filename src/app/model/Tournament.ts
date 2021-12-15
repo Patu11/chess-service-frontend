@@ -1,27 +1,28 @@
 import {User} from "./User";
 import {GameModel} from "./GameModel";
+import {Round} from "./Round";
 
 export class Tournament {
 	private _tournamentId: number;
 	private _title: string;
-	private _bracket: string;
 	private _maxPlayers: number;
 	private _winner: string;
 	private _startDate: string;
 	private _endDate: string;
 	private _users: Array<User>;
 	private _games: Array<GameModel>;
+	private _rounds: Array<Round>
 
-	constructor(tournamentId: number, title: string, bracket: string, maxPlayers: number, winner: string, startDate: string, endDate: string, users: Array<User>, games: Array<GameModel>) {
+	constructor(tournamentId: number, title: string, maxPlayers: number, winner: string, startDate: string, endDate: string, users: Array<User>, games: Array<GameModel>, rounds: Array<Round>) {
 		this._tournamentId = tournamentId;
 		this._title = title;
-		this._bracket = bracket;
 		this._maxPlayers = maxPlayers;
 		this._winner = winner;
 		this._startDate = startDate;
 		this._endDate = endDate;
 		this._users = users;
 		this._games = games;
+		this._rounds = rounds;
 	}
 
 	get tournamentId(): number {
@@ -80,20 +81,20 @@ export class Tournament {
 		this._users = value;
 	}
 
-
-	get bracket(): string {
-		return this._bracket;
-	}
-
-	set bracket(value: string) {
-		this._bracket = value;
-	}
-
 	get games(): Array<GameModel> {
 		return this._games;
 	}
 
 	set games(value: Array<GameModel>) {
 		this._games = value;
+	}
+
+
+	get rounds(): Array<Round> {
+		return this._rounds;
+	}
+
+	set rounds(value: Array<Round>) {
+		this._rounds = value;
 	}
 }

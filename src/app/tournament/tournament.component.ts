@@ -72,6 +72,7 @@ export class TournamentComponent implements OnInit {
 		this.isFull = this.tournament?.maxPlayers == this.tournament?.users.length;
 		this.currentNumberOfPlayers = this.tournament!.users.length;
 		this.joinButtonContent = this.isFull ? 'Full' : 'Join';
+		console.log(this.tournament?.winner);
 	}
 
 	ngOnDestroy() {

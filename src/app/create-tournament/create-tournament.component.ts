@@ -33,7 +33,7 @@ export class CreateTournamentComponent implements OnInit {
 		}
 
 		if (this.title && this.startDate && this.endDate && endDate > startDate) {
-			let tournament: Tournament = new Tournament(-1, this.title, '', 8, '', this.startDate, this.endDate, [], []);
+			let tournament: Tournament = new Tournament(-1, this.title, 8, '', this.startDate, this.endDate, [], [], []);
 			this.tournamentService.createTournament(tournament).subscribe(
 				response => {
 					console.log(response);

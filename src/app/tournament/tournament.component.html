@@ -16,7 +16,7 @@
 		</button>
 	</div>
 	<div>
-		<button [disabled]="isFull" *ngIf="!alreadyJoined" (click)="onJoin()"
+		<button [disabled]="isFull" *ngIf="!alreadyJoined || tournament!.winner" (click)="onJoin()"
 				class="btn btn-success btn-sm d-inline float-end">{{joinButtonContent}}
 		</button>
 		<button *ngIf="alreadyJoined" (click)="onLeave()" class="btn btn-danger btn-sm d-inline float-end">Leave
