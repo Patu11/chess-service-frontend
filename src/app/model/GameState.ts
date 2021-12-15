@@ -2,7 +2,7 @@ export class GameState {
 	public boardState?: string[][];
 	public currentTurn?: string;
 	public winner?: string;
-	public draw?: string
+	public draw?: string[];
 
 	constructor() {
 
@@ -20,8 +20,14 @@ export class GameState {
 		this.boardState = value;
 	}
 
-	public setDraw(draw: string) {
-		this.draw = draw;
+	public setDraw(user1: string, user2: string) {
+		this.draw = [];
+		this.draw[0] = user1;
+		this.draw[1] = user2;
 	}
+
+	// public setDraw(draw: string) {
+	// 	this.draw = draw;
+	// }
 
 }

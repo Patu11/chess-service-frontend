@@ -56,6 +56,7 @@ export class FriendListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.friends = this.friends.filter(f => f.status);
 	}
 
 	generateCode(): string {

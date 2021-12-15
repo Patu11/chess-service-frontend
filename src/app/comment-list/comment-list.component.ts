@@ -37,6 +37,7 @@ export class CommentListComponent implements OnInit {
 			this.profileService.addComment(c, "asd").subscribe(
 				(response) => {
 					console.log(response);
+					this.comments?.push(c);
 					this.content = '';
 				},
 				(error => {

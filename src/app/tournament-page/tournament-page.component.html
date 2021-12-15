@@ -1,3 +1,32 @@
 <!--<app-user-list [users]="tournament!.users"></app-user-list>-->
 
-<app-tournament-game-list [games]="tournament!.games"></app-tournament-game-list>
+<div style="padding: 10px;" class="container">
+	<div class="row justify-content-center">
+		<div class="col-4">
+			<app-tournament-game-list roundTitle="Round 1" [games]="tournament!.games"></app-tournament-game-list>
+		</div>
+		<div class="col-4">
+			<app-tournament-game-list roundTitle="Round 2" [games]="tournament!.games"></app-tournament-game-list>
+		</div>
+		<div class="col-4">
+			<app-tournament-game-list roundTitle="Round 3" [games]="tournament!.games"></app-tournament-game-list>
+		</div>
+	</div>
+
+	<div style="margin-top: 20px;" class="text-center">
+		<h1 class="display-1">Winner:</h1>
+	</div>
+</div>
+
+<!--<div class="container">-->
+<!--	<div class="row">-->
+<!--		<div class="col-10">-->
+<!--			<app-tournament-game-list roundTitle="Round 1" [games]="tournament!.games"></app-tournament-game-list>-->
+<!--		</div>-->
+<!--		<div class="col-10">-->
+<!--			<app-tournament-game-list roundTitle="Round 2" [games]="tournament!.games"></app-tournament-game-list>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
+
+

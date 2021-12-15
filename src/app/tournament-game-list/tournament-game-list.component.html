@@ -1,0 +1,14 @@
+<div style="width: 100%;" class="container">
+	<div>
+		<ul class="list-group">
+			<li class="list-group-item active text-center">{{roundTitle}}</li>
+		</ul>
+	</div>
+	<div class="text-center">
+		<ul class="list-group list-unstyled">
+			<li *ngFor="let game of games" class="list-group-item">
+				<app-tournament-game [game]="game"></app-tournament-game>
+			</li>
+		</ul>
+	</div>
+</div>

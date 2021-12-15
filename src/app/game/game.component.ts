@@ -55,14 +55,19 @@ export class GameComponent implements OnInit {
 
 	onDraw() {
 		let gs: GameState = new GameState();
-		gs.setDraw(this.username!);
+		gs.setDraw(this.username!, '');
 		this.websocketService.sendGameState(gs, this.gameModel.code);
 	}
 
-	showDrawModal(draw: string) {
-		if (draw !== this.username && draw !== '') {
+	showDrawModal(draw: string[]) {
+		let us1: string = draw[0];
+		let us2: string = draw[1];
+		if (us1 !== this.username && us2 === '') {
 			this.modalRef = this.modalService.show(this.drawModal!);
 		}
+		// if (draw !== this.username && draw !== '') {
+		// 	this.modalRef = this.modalService.show(this.drawModal!);
+		// }
 	}
 
 	handleDrawYes() {
@@ -72,6 +77,13 @@ export class GameComponent implements OnInit {
 		this.websocketService.sendGameState(gs, this.gameModel.code);
 		sessionStorage.setItem('USER_INGAME', 'false');
 		this.handleModalClose();
+		// let gs: GameState = new GameState();
+		// gs.setWinner('DRAW');
+		// this.gameService.updateWinner(this.gameModel.code, 'DRAW').subscribe();
+		// this.websocketService.sendGameState(gs, this.gameModel.code);
+		// sessionStorage.setItem('USER_INGAME', 'false');
+		// this.handleModalClose();
+		// this.showWinnerDrawModal('DRAW');
 	}
 
 	handleModalYes() {
@@ -85,6 +97,7 @@ export class GameComponent implements OnInit {
 		this.websocketService.sendGameState(gs, this.gameModel.code);
 		sessionStorage.setItem('USER_INGAME', 'false');
 		this.handleModalClose();
+		// this.websocketService.disconnectFromGame(this.gameModel.code);
 		this.route.navigate(['/home']);
 	}
 
@@ -98,22 +111,34 @@ export class GameComponent implements OnInit {
 			this.modalRef.onHide?.subscribe(
 				() => {
 					this.websocketService.sendGameState(new GameState(), this.gameModel.code);
+					// this.websocketService.disconnectFromGame(this.gameModel.code);
+					this.route.navigate(['/home']);
+				}
+			);
+		} else if (winner === 'DRAW') {
+			this.modalRef = this.modalService.show(this.drawInfoModal!);
+			this.modalRef.onHide?.subscribe(
+				() => {
+					sessionStorage.setItem('USER_INGAME', 'false');
+					this.websocketService.sendGameState(new GameState(), this.gameModel.code);
+					// this.websocketService.disconnectFromGame(this.gameModel.code);
 					this.route.navigate(['/home']);
 				}
 			);
 		}
 	}
 
-	showWinnerDrawModal() {
-		this.modalRef = this.modalService.show(this.drawInfoModal!);
-		this.modalRef.onHide?.subscribe(
-			() => {
-				this.websocketService.sendGameState(new GameState(), this.gameModel.code);
-				this.route.navigate(['/home']);
-			}
-		);
-
-	}
+	// showWinnerDrawModal(winner: string) {
+	// 	if (winner === 'DRAW') {
+	// 		this.modalRef = this.modalService.show(this.drawInfoModal!);
+	// 		this.modalRef.onHide?.subscribe(
+	// 			() => {
+	// 				this.websocketService.sendGameState(new GameState(), this.gameModel.code);
+	// 				this.route.navigate(['/home']);
+	// 			}
+	// 		);
+	// 	}
+	// }
 
 	makeMove(move: Move) {
 		if (this.currentTurn === this.username) {
@@ -177,8 +202,9 @@ export class GameComponent implements OnInit {
 												if (state.boardState) {
 													this.game.getBoard().fromString(state.boardState);
 												}
-												if (state.draw && state.draw !== '' && !this.winner) {
-													this.showWinnerDrawModal();
+
+												if (state.draw) {
+													this.showDrawModal(state.draw);
 												}
 											}
 										}

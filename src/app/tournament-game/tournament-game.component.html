@@ -1,0 +1,10 @@
+<div>
+	<p><a [routerLink]="['/profile',game!.host]"
+		  style="text-decoration: none !important;"
+		  class="link-primary">{{game!.host}}</a> vs
+		<a [routerLink]="['/profile',game!.player]"
+		   style="text-decoration: none !important;"
+		   class="link-primary">{{game!.player}}</a> <span
+				*ngIf="game!.winner"> Winner: <span class="fw-bold">{{game!.winner}}</span></span></p>
+</div>
+

@@ -12,6 +12,7 @@ export class FriendService {
 
 	createFriendship(user1: string, user2: string) {
 		const body = {
+			sender: user1,
 			user1: user1,
 			user2: user2,
 			status: false

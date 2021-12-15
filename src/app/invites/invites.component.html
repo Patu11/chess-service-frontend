@@ -2,7 +2,7 @@
 	<ul class="list-group">
 		<li class="list-group-item active">Friend invites</li>
 		<li *ngFor="let friend of user.friends" class="list-group-item">
-			<div *ngIf="!friend.status">
+			<div *ngIf="!friend.status && friend.sender!=user.username">
 				<div style="display: inline-block;float:left;">Friend invite from
 					<a [routerLink]="['/profile',friend.user2]"
 					   style="text-decoration: none !important;font-size: 20px;"

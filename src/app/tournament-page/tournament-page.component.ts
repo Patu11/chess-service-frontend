@@ -14,6 +14,9 @@ export class TournamentPageComponent implements OnInit {
 	link: string = '';
 	tournament?: Tournament = new Tournament(-1, '', '', 8, '', '2021-01-01', '2021-01-01', [], []);
 
+	secondRound = [];
+	thirdRound = [];
+
 	constructor(private tournamentService: TournamentService, private route: ActivatedRoute) {
 	}
 
