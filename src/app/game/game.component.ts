@@ -110,6 +110,7 @@ export class GameComponent implements OnInit {
 			this.modalRef = this.modalService.show(this.winModal!);
 			this.modalRef.onHide?.subscribe(
 				() => {
+					sessionStorage.setItem('USER_INGAME', 'false');
 					this.websocketService.sendGameState(new GameState(), this.gameModel.code);
 					// this.websocketService.disconnectFromGame(this.gameModel.code);
 					this.route.navigate(['/home']);

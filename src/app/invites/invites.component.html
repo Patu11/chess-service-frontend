@@ -1,7 +1,7 @@
 <div style="margin:5px;">
 	<ul class="list-group">
 		<li class="list-group-item active">Friend invites</li>
-		<li *ngFor="let friend of user.friends" class="list-group-item">
+		<li *ngFor="let friend of friends" class="list-group-item">
 			<div *ngIf="!friend.status && friend.sender!=user.username">
 				<div style="display: inline-block;float:left;">Friend invite from
 					<a [routerLink]="['/profile',friend.user2]"
@@ -23,19 +23,21 @@
 		<li class="list-group-item active">Game invites</li>
 		<li *ngFor="let game of games" class="list-group-item">
 			<div *ngIf="!game.accepted">
-				<div style="display: inline-block;float:left;">
-					Game invite from
+				<div class="d-inline-block float-start">
+					<!--					Game invite from-->
+					{{game.tournamentId != -1 ? 'Tournament' : 'Game'}} invite from
 					<a [routerLink]="['/profile',game.host]"
 					   style="text-decoration: none !important;font-size: 20px;"
 					   class="link-primary">{{game.host}}</a>
+					<!--					<span style="margin-left: 5px;font-size: 13px;">Tournament</span>-->
 				</div>
-				<div>
+				<div *ngIf="game.tournamentId ==-1">
 					<button (click)="onGameDecline(game)"
 							style="display: inline-block; float: right;"
 							class="btn btn-danger btn-sm">Decline
 					</button>
 				</div>
-				<div style="margin-right: 70px;">
+				<div>
 					<button [disabled]="isInGame" (click)="onGameAccept(game)"
 							style="display: inline-block; float: right;"
 							class="btn btn-success btn-sm">Accept

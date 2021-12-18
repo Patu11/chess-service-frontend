@@ -19,6 +19,8 @@ export class InvitesComponent implements OnInit {
 	@Input()
 	games: GameModel[] = [];
 
+	friends: Friend[] = [];
+
 	isInGame: boolean = false;
 
 	constructor(private friendService: FriendService, private gameService: GameService, private route: Router) {
@@ -27,8 +29,8 @@ export class InvitesComponent implements OnInit {
 	onFriendAccept(friend: Friend) {
 		this.friendService.acceptFriendship(friend.user1, friend.user2).subscribe(
 			response => {
-				this.user.friends.forEach((item, index) => {
-					if (item.user1 === friend.user1 && item.user2 === friend.user2) this.user.friends.splice(index, 1);
+				this.friends.forEach((item, index) => {
+					if (item.user1 === friend.user1 && item.user2 === friend.user2) this.friends.splice(index, 1);
 				});
 				console.log(response);
 			},
@@ -41,8 +43,8 @@ export class InvitesComponent implements OnInit {
 	onFriendDecline(friend: Friend) {
 		this.friendService.declineFriendship(friend.user1, friend.user2).subscribe(
 			response => {
-				this.user.friends.forEach((item, index) => {
-					if (item.user1 === friend.user1 && item.user2 === friend.user2) this.user.friends.splice(index, 1);
+				this.friends.forEach((item, index) => {
+					if (item.user1 === friend.user1 && item.user2 === friend.user2) this.friends.splice(index, 1);
 				});
 				console.log(response);
 			},
@@ -91,6 +93,7 @@ export class InvitesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.friends = this.user.friends.filter(f => !f.status && f.sender !== this.user.username);
 		if (sessionStorage.getItem('USER_INGAME')) {
 			this.isInGame = sessionStorage.getItem('USER_INGAME') === 'true';
 
