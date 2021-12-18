@@ -29,9 +29,11 @@ export class TournamentPageComponent implements OnInit {
 			this.tournamentService.getTournament(Number(this.link)).subscribe(
 				response => {
 					this.tournament = response;
-					this.firstRound = this.tournament.rounds.find(r => r.roundNumber == 1)!.games
-					this.secondRound = this.tournament.rounds.find(r => r.roundNumber == 2)!.games
-					this.thirdRound = this.tournament.rounds.find(r => r.roundNumber == 3)!.games
+					if (this.tournament.games.length > 0) {
+						this.firstRound = this.tournament.rounds.find(r => r.roundNumber == 1)!.games
+						this.secondRound = this.tournament.rounds.find(r => r.roundNumber == 2)!.games
+						this.thirdRound = this.tournament.rounds.find(r => r.roundNumber == 3)!.games
+					}
 				},
 				error => {
 					console.log(error);

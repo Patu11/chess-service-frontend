@@ -3,6 +3,7 @@ import {Tournament} from "../model/Tournament";
 import {DataService} from "../services/data.service";
 import {Subscription} from "rxjs";
 import {TournamentService} from "../services/tournament.service";
+import {start} from "repl";
 
 @Component({
 	selector: 'app-tournament',
@@ -20,6 +21,8 @@ export class TournamentComponent implements OnInit {
 	currentNumberOfPlayers: number = 0;
 	isFull: boolean = false;
 	joinButtonContent: string = '';
+	ended: boolean = false;
+	started: boolean = false;
 
 	@Output()
 	deleteId = new EventEmitter<number>();
@@ -72,7 +75,11 @@ export class TournamentComponent implements OnInit {
 		this.isFull = this.tournament?.maxPlayers == this.tournament?.users.length;
 		this.currentNumberOfPlayers = this.tournament!.users.length;
 		this.joinButtonContent = this.isFull ? 'Full' : 'Join';
-		console.log(this.tournament?.winner);
+		let endDate = Date.parse(this.tournament!.endDate);
+		let startDate = Date.parse(this.tournament!.startDate);
+		let current = Date.now();
+		this.ended = (endDate == current) || !!this.tournament?.winner;
+		this.started = (current >= startDate) && !this.ended;
 	}
 
 	ngOnDestroy() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Tournament} from "../model/Tournament";
 import {TournamentService} from "../services/tournament.service";
 import {DataService} from "../services/data.service";
@@ -11,6 +11,9 @@ import {Subscription} from "rxjs";
 })
 export class TournamentListComponent implements OnInit {
 	tournaments: Tournament[] = [];
+
+	@Input()
+	showCompletedTournaments: boolean = false;
 
 	constructor(private tournamentService: TournamentService) {
 	}
@@ -25,6 +28,9 @@ export class TournamentListComponent implements OnInit {
 		this.tournamentService.getAllTournaments().subscribe(
 			response => {
 				this.tournaments = response;
+				if (this.showCompletedTournaments) {
+					this.tournaments = response.filter(t => t.winner || Date.parse(t.endDate) == Date.now());
+				}
 			},
 			error => {
 				console.log(error);
