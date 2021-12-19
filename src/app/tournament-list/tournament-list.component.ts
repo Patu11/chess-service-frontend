@@ -29,7 +29,9 @@ export class TournamentListComponent implements OnInit {
 			response => {
 				this.tournaments = response;
 				if (this.showCompletedTournaments) {
-					this.tournaments = response.filter(t => t.winner || Date.parse(t.endDate) == Date.now());
+					this.tournaments = response.filter(t => t.winner || Date.parse(t.endDate) <= Date.now());
+				} else {
+					this.tournaments = response.filter(t => !t.winner && Date.parse(t.endDate) > Date.now());
 				}
 			},
 			error => {

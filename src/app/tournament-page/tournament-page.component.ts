@@ -30,9 +30,9 @@ export class TournamentPageComponent implements OnInit {
 				response => {
 					this.tournament = response;
 					if (this.tournament.games.length > 0) {
-						this.firstRound = this.tournament.rounds.find(r => r.roundNumber == 1)!.games
-						this.secondRound = this.tournament.rounds.find(r => r.roundNumber == 2)!.games
-						this.thirdRound = this.tournament.rounds.find(r => r.roundNumber == 3)!.games
+						this.firstRound = this.tournament.rounds.find(r => r.roundNumber == 1)!.games.filter(g => g.winner !== 'DRAW');
+						this.secondRound = this.tournament.rounds.find(r => r.roundNumber == 2)!.games.filter(g => g.winner !== 'DRAW');
+						this.thirdRound = this.tournament.rounds.find(r => r.roundNumber == 3)!.games.filter(g => g.winner !== 'DRAW');
 					}
 				},
 				error => {
