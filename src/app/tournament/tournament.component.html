@@ -19,7 +19,7 @@
 		</button>
 	</div>
 	<div *ngIf="!tournament!.winner&&started">
-		<button *ngIf="!alreadyJoined" [disabled]="isFull||!ended" (click)="onJoin()"
+		<button *ngIf="!alreadyJoined" [disabled]="isFull||ended" (click)="onJoin()"
 				class="btn btn-success btn-sm d-inline float-end">{{joinButtonContent}}
 		</button>
 	</div>

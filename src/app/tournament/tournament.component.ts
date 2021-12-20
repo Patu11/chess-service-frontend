@@ -78,7 +78,7 @@ export class TournamentComponent implements OnInit {
 		let endDate = Date.parse(this.tournament!.endDate);
 		let startDate = Date.parse(this.tournament!.startDate);
 		let current = Date.now();
-		this.ended = (endDate == current) || !!this.tournament?.winner;
+		this.ended = (endDate <= current) || !!this.tournament?.winner;
 		this.started = (current >= startDate) && !this.ended;
 	}
 

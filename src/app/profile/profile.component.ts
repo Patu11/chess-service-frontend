@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
 	games: GameModel[] = [];
 	codes: string[] = [];
 	numberOfGames: number = 0;
+	noUserError = false;
 
 	constructor(private profileService: ProfileService, private route: ActivatedRoute, private gameService: GameService) {
 		this.profile = new Profile(-1, new User('', '', '', [], [], new Set(), []), []);
@@ -56,6 +57,7 @@ export class ProfileComponent implements OnInit {
 						);
 					},
 					(error) => {
+						this.noUserError = true;
 						console.log(error);
 					}
 				);

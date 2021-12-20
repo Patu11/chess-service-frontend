@@ -5,6 +5,7 @@ import {FriendService} from "../services/friend.service";
 import {GameModel} from "../model/GameModel";
 import {GameService} from "../services/game.service";
 import {Router} from "@angular/router";
+import {TournamentService} from "../services/tournament.service";
 
 @Component({
 	selector: 'app-invites',
@@ -23,7 +24,7 @@ export class InvitesComponent implements OnInit {
 
 	isInGame: boolean = false;
 
-	constructor(private friendService: FriendService, private gameService: GameService, private route: Router) {
+	constructor(private friendService: FriendService, private gameService: GameService, private tournamentService: TournamentService, private route: Router) {
 	}
 
 	onFriendAccept(friend: Friend) {
@@ -84,8 +85,24 @@ export class InvitesComponent implements OnInit {
 		if (changes['games']) {
 			let gamesTemp: GameModel[] = [];
 			for (let game of this.games) {
-				if (game.player === this.user.username && !game.accepted) {
-					gamesTemp.push(game);
+				if (game.tournamentId && game.tournamentId != -1) {
+					this.tournamentService.getTournament(game.tournamentId).subscribe(
+						response => {
+							let now = Date.now();
+							let endDate = Date.parse(response.endDate);
+							let isOver = now >= endDate;
+							if (game.player === this.user.username && !game.accepted && !isOver) {
+								gamesTemp.push(game);
+							}
+						},
+						error => {
+							console.log(error);
+						}
+					);
+				} else {
+					if (game.player === this.user.username && !game.accepted) {
+						gamesTemp.push(game);
+					}
 				}
 			}
 			this.games = gamesTemp;
