@@ -1,3 +1,15 @@
+//.square {
+//  width: 100px;
+//  height: 100px;
+//  text-align: center;
+//  position: relative;
+//}
+//
+//.piece {
+//  width: 90px;
+//  height: 90px;
+//}
+
 .square {
   width: 100px;
   height: 100px;
@@ -6,14 +18,14 @@
 }
 
 .piece {
-  width: 90px;
-  height: 90px;
+  width: 95%;
+  height: 95%;
 }
 
 .topleft {
   position: absolute;
   padding-left: 3px;
-  font-size: 20px;
+  font-size: 1vw;
 }
 
 .bottomright {
@@ -21,5 +33,45 @@
   top: 70%;
   right: 0;
   padding-right: 3px;
-  font-size: 20px;
+  font-size: 1vw;
+}
+
+//.topleft {
+//  position: absolute;
+//  padding-left: 3px;
+//  font-size: 20px;
+//}
+//
+//.bottomright {
+//  position: absolute;
+//  top: 70%;
+//  right: 0;
+//  padding-right: 3px;
+//  font-size: 20px;
+//}
+
+.responsive {
+}
+
+@media screen and (max-width: 865px) {
+  .square {
+    width: 11vw;
+    height: 11vw;
+    text-align: center;
+    position: relative;
+  }
+
+  .topleft {
+    position: absolute;
+    padding-left: 3px;
+    font-size: 15px;
+  }
+
+  .bottomright {
+    position: absolute;
+    top: 70%;
+    right: 0;
+    padding-right: 3px;
+    font-size: 15px;
+  }
 }

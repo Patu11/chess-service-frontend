@@ -3,3 +3,13 @@
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.responsive {
+    width: 50%;
+}
+
+@media screen and (max-width: 1187px) {
+    .responsive {
+        width: 100%;
+    }
+}

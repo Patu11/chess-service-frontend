@@ -6,3 +6,19 @@
 .margin-btm {
     margin-bottom: 5px;
 }
+
+.responsive {
+
+}
+
+@media screen and (max-width: 1080px) {
+    .center {
+        width: 30vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .center {
+        width: 50vw;
+    }
+}
