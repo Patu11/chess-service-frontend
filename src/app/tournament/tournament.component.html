@@ -18,7 +18,7 @@
 				class="btn btn-danger btn-sm d-inline float-end">Delete
 		</button>
 	</div>
-	<div *ngIf="!tournament!.winner&&started">
+	<div *ngIf="!tournament!.winner&&!started&&!ended">
 		<button *ngIf="!alreadyJoined" [disabled]="isFull||ended" (click)="onJoin()"
 				class="btn btn-success btn-sm d-inline float-end">{{joinButtonContent}}
 		</button>

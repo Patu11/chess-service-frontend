@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Friend} from "../model/Friend";
 import {FriendService} from "../services/friend.service";
 import {GameService} from "../services/game.service";
@@ -53,6 +53,12 @@ export class FriendListComponent implements OnInit {
 				console.log(error);
 			}
 		);
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.friends) {
+			this.friends = this.friends.filter(f => f.status);
+		}
 	}
 
 	ngOnInit(): void {

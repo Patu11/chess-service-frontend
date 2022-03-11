@@ -19,7 +19,7 @@ export class ProfileCardComponent implements OnInit {
 
 	@Input()
 	numberOfGames: number = 0;
-
+	numberOfFriends: number = 0;
 	newPassword: string = '';
 	confirmPassword: string = '';
 	showPasswordStatus: boolean = false;
@@ -100,6 +100,8 @@ export class ProfileCardComponent implements OnInit {
 				let username = sessionStorage.getItem('USER_USERNAME');
 
 				if (username && this.user.username) {
+					this.numberOfFriends = this.user.friends.filter(f => f.status).length;
+					console.log(this.numberOfFriends);
 					// this.owner = username === this.user.username;
 					this.friendService.checkFriendship(username, this.user.username).subscribe(
 						(response: any) => {

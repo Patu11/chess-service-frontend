@@ -80,6 +80,8 @@ export class TournamentComponent implements OnInit {
 		let current = Date.now();
 		this.ended = (endDate <= current) || !!this.tournament?.winner;
 		this.started = (current >= startDate) && !this.ended;
+		console.log(this.tournament?.title);
+		console.log(this.ended);
 	}
 
 	ngOnDestroy() {
